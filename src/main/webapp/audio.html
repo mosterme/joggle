@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>✰ joggle ✰</title>
+<link rel="shortcut icon" href="./img/48/audio.png">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header>✰ joggle ✰</header>
+<article id="container">
+<nav id="browser-nav" class="ln"></nav>
+<section class="left column">
+<div class="playinfo bubble">
+<div class="image bubble"><img class="cover" id="cover" src="./img/128/junk.png" /></div>
+<div class="artist nobr" id="artist">Artist</div>
+<div class="album nobr" id="album">Album</div>
+<div class="title nobr" id="title">Title</div>
+<div class="audio nobr" id="audio"><audio id="player" controls="controls" onended="neh()" src="#"></audio></div>
+</div>
+<div class="playlist bubble">
+<nav id="playlist-nav">
+<a id="back" href="#">◄</a>
+<a id="stop" href="#">‖</a>
+<a id="next" href="#">►</a>
+<a id="clear" href="#" class="right">◻</a>
+<a id="clean" href="#" class="right">▭</a>
+</nav>
+<ul id="playlist"></ul>
+</div>
+</section>
+<section class="middle column">
+<div class="browse bubble">
+<ul id="browser"></ul>
+</div>
+</section>
+</article>
+<footer>✰ joggle ✰ v0.01 ✰ ⅿⅿⅺ ✰</footer>
+<script id="brt" type="text/x-jquery-tmpl"><li><a href="#" onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
+<script id="plt" type="text/x-jquery-tmpl"><li><a id="${id}" class="${type} nobr" href="#" onclick="play('${id}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
+<script src="./js/joggle.js"></script>
+</body>
+</html>

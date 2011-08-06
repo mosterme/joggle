@@ -1,0 +1,35 @@
+﻿<?xml version="1.0"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<icon>
+		<large-icon>./img/48/audio.png</large-icon>
+	</icon>
+	<display-name>joggle</display-name>
+	<servlet>
+		<servlet-name>search</servlet-name>
+		<servlet-class>joggle.web.SearchServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>image</servlet-name>
+		<servlet-class>joggle.web.ImageServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>stream</servlet-name>
+		<servlet-class>joggle.web.StreamServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>search</servlet-name>
+		<url-pattern>/search/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>image</servlet-name>
+		<url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>stream</servlet-name>
+		<url-pattern>/stream/*</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>audio.html</welcome-file>
+	</welcome-file-list>
+</web-app>
