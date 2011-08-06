@@ -68,7 +68,7 @@ public class DataTest extends TestCase {
 		assertNotNull(song);
 		assertEquals("Hörstreich", song.getArtist());
 		log.info("test by id");
-		song = manager.find("A8886908F9E197F39E94AC96922E8A6605478DA3");
+		song = manager.find("D395203843AA7093BFA7CCEF8E8476FB400CDEE1");
 		log.info(song.toString());
 		assertEquals("Rap Trax", song.getAlbum());
 		assertEquals("The Hate Noise", song.getArtist());
