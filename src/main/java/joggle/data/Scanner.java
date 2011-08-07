@@ -53,12 +53,13 @@ public class Scanner {
 				if (brokenEncoding(artist,f)) artist = fixEncoding(artist);
 				if (brokenEncoding(album,f)) album = fixEncoding(album);
 				if (brokenEncoding(title,f)) title = fixEncoding(title);
-				Song s = new Song(id, type, artist, album, track, title, genre, file);
+				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
+				if (artwork) log.info("Found artwork for " + f);
+				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file);
 				Manager.getInstance().merge(s);
 			}
 			else {
-				log.warn("No meta tag found " + f.getName());
-				log.warn(f.getAbsolutePath());
+				log.warn("No meta tag found " + f);
 			}
 		}
 		catch (Exception e) {

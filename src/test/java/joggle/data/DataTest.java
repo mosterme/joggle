@@ -42,32 +42,16 @@ public class DataTest extends TestCase {
 		List<Song> list = manager.list();
 		for (Song s : list) log.info(s.toString());
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(1, list.size());
 		log.info("test by type");
-		list = manager.byType("ogg");
+		list = manager.byType("mp3");
 		for (Song s : list) log.info(s.toString());
 		assertNotNull(list);
 		assertEquals(1, list.size());
 		Song song = list.get(0);
 		assertNotNull(song);
-		assertEquals("ogg", song.getType());
-		log.info("test by album");
-		list = manager.byAlbum("Rap Trax");
-		for (Song s : list) log.info(s.toString());
-		assertNotNull(list);
-		assertEquals(1, list.size());
-		song = list.get(0);
-		assertNotNull(song);
-		assertEquals("Rap Trax", song.getAlbum());
+		assertEquals("mp3", song.getType());
 		String sha1 = song.getId();
-		log.info("test by artist");
-		list = manager.byArtist("Hörstreich");
-		for (Song s : list) log.info(s.toString());
-		assertNotNull(list);
-		assertEquals(1, list.size());
-		song = list.get(0);
-		assertNotNull(song);
-		assertEquals("Hörstreich", song.getArtist());
 		log.info("test by id");
 		song = manager.find(sha1);
 		log.info(song.toString());
@@ -76,6 +60,16 @@ public class DataTest extends TestCase {
 		assertEquals(new Integer(6), song.getTrack());
 		assertEquals("Drunk Off Chicken", song.getTitle());
 		assertEquals("Hip Hop/Rap", song.getGenre());
+		log.info("test by album");
+		list = manager.byAlbum("Rap Trax");
+		for (Song s : list) log.info(s.toString());
+		assertNotNull(list);
+		assertEquals(1, list.size());
+		log.info("test by artist");
+		list = manager.byArtist("The Hate Noise");
+		for (Song s : list) log.info(s.toString());
+		assertNotNull(list);
+		assertEquals(1, list.size());
 		log.info("test list all albums");
 		List<String> albums = manager.albums();
 		log.info(Serializer.toJson(albums));
@@ -92,10 +86,10 @@ public class DataTest extends TestCase {
 		assertEquals("{}", json);
 		String string = Serializer.toString(snull);
 		assertNotNull(string);
-		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"file\":null}",string);
+		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null}",string);
 		String sha1s = Serializer.sha1(string);
 		assertNotNull(sha1s);
-		assertEquals("44F2170DD42AD1AEEC39DC83CD215E1329B93A39", sha1s);
+		assertEquals("C2880CC3B54B99F0AAD94FCDCA1974C2BF5D8B9F", sha1s);
 		String sha1j = Serializer.sha1(json);
 		assertNotNull(sha1j);
 		assertEquals("BF21A9E8FBC5A3846FB05B4FA0859E0917B2202F", sha1j);
@@ -112,13 +106,12 @@ public class DataTest extends TestCase {
 	public void testArtwork() throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
 		log.info("test Artwork");
 		Manager manager = Manager.getInstance();
-		List<Song> list = manager.list();
-		for (Song song : list) {
-			File file = new File(song.getFile());
-			AudioFile af = AudioFileIO.read(file); 
-			Tag tag = af.getTag();
-			List<Artwork> la = tag.getArtworkList();
-			log.info("->" + la);
-		}
+		Song song = manager.list().get(0);
+		File file = new File(song.getFile());
+		AudioFile af = AudioFileIO.read(file); 
+		Tag tag = af.getTag();
+		Artwork aw = tag.getFirstArtwork();
+		assertNotNull(aw);
+		assertEquals("image/jpeg", aw.getMimeType());
 	}
 }

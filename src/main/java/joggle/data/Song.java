@@ -19,6 +19,7 @@ public class Song implements Serializable {
 	@Expose private Integer track;
 	@Expose private String title;
 	@Expose private String genre;
+	private Boolean artwork;
 	private String file;
 
 	@Override
@@ -29,7 +30,7 @@ public class Song implements Serializable {
 	public Song() {
 	}
 
-	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, String file) {
+	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, Boolean artwork, String file) {
 		this.id = id;
 		this.type = type;
 		this.artist = artist;
@@ -37,6 +38,7 @@ public class Song implements Serializable {
 		this.track = track;
 		this.title = title;
 		this.genre = genre;
+		this.artwork = artwork;
 		this.file = file;
 	}
 
@@ -95,6 +97,14 @@ public class Song implements Serializable {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public void setArtwork(Boolean artwork) {
+		this.artwork = artwork;
+	}
+
+	public Boolean getArtwork() {
+		return artwork;
 	}
 
 	public String getFile() {
