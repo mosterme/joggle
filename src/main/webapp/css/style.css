@@ -4,10 +4,9 @@ footer { font-size:small; position:fixed; bottom:5px; }
 header { font-size:xx-large; font-weight:bold;  }
 header, footer { color:#888888; width:100%; }
 nav a {text-decoration:none; }
-ul {text-align:left; }
 .album { font-size:smaller; }
 .artist { font-weight:bold; margin-top:10px; }
-.browse { width:300px; }
+.browse { text-align:left; width:300px; }
 .bubble { background-color:#ffffff; border:1px solid #888; border-radius:10px; margin:5px; padding:5px; }
 .column  { display:inline-block; vertical-align:top; margin:0; padding:0; }
 .cover { max-height:100px; max-width:100px; vertical-align:middle; }

@@ -59,6 +59,7 @@ public class DataTest extends TestCase {
 		song = list.get(0);
 		assertNotNull(song);
 		assertEquals("Rap Trax", song.getAlbum());
+		String sha1 = song.getId();
 		log.info("test by artist");
 		list = manager.byArtist("Hörstreich");
 		for (Song s : list) log.info(s.toString());
@@ -68,7 +69,7 @@ public class DataTest extends TestCase {
 		assertNotNull(song);
 		assertEquals("Hörstreich", song.getArtist());
 		log.info("test by id");
-		song = manager.find("D395203843AA7093BFA7CCEF8E8476FB400CDEE1");
+		song = manager.find(sha1);
 		log.info(song.toString());
 		assertEquals("Rap Trax", song.getAlbum());
 		assertEquals("The Hate Noise", song.getArtist());

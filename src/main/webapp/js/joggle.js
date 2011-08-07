@@ -13,8 +13,8 @@ function queue(what, keyword) {
 	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/" + keyword, success: function(data){ prender(data.d) } });
 }
 
-function browse(keyword) {
-	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + keyword + "/", success: function(data){ brender(data.d) } });
+function browse(what) {
+	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/", success: function(data){ brender(data.d) } });
 }
 
 function brender(data) {
