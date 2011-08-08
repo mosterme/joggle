@@ -6,8 +6,8 @@ $('#stop').click(function(){peh()});
 $('#next').click(function(){neh()});
 
 function beh() { $('.cur').parent().prev().children().first().click() }
-function peh() { var p = document.getElementById("player"); p.paused ? p.play() : p.pause() }
 function neh() { $('.cur').parent().next().children().first().click() }
+function peh() { var p = document.getElementById("player"); p.paused ? p.play() : p.pause() }
 
 function queue(what, keyword) {
 	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/" + keyword, success: function(data){ prender(data.d) } });
@@ -27,7 +27,8 @@ function prender(data) {
 }
 
 function play(id, artist, album, title, track) {
-	$('.cur').removeClass('cur'); $('#'+id).addClass('cur');
+	$('.cur').removeClass('cur');
+	$('#'+id).addClass('cur');
 	$('#player').attr('src','./stream/' + id);
 	$('#player').attr('autoplay','autoplay');
 	$('#artist').text(unescape(artist));

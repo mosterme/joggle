@@ -8,7 +8,7 @@ nav a {text-decoration:none; }
 .artist { font-weight:bold; margin-top:10px; }
 .browse { text-align:left; width:300px; }
 .bubble { background-color:#ffffff; border:1px solid #888; border-radius:10px; margin:5px; padding:5px; }
-.column  { display:inline-block; vertical-align:top; margin:0; padding:0; }
+.column { display:inline-block; vertical-align:top; margin:0; padding:0; }
 .cover { max-height:100px; max-width:100px; vertical-align:middle; }
 .cur { color:#884444 !important; }
 .image { float:left; padding:10px !important; vertical-align:middle; }
@@ -21,6 +21,6 @@ nav a {text-decoration:none; }
 .nobr { white-space:pre-wrap; }
 .ogg { color:#888844; }
 .playinfo, .playlist  { max-width:435px; min-width:435px; text-align:left; overflow:hidden; }
-.playlist  { margin-top:15px; }
+.playlist { margin-top:15px; }
 .right { float:right; }
 .title { font-size:larger; font-weight:bold; margin:5px; }

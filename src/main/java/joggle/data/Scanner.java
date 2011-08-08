@@ -54,7 +54,7 @@ public class Scanner {
 				if (brokenEncoding(album,f)) album = fixEncoding(album);
 				if (brokenEncoding(title,f)) title = fixEncoding(title);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
-				if (artwork) log.info("Found artwork for " + f);
+				if (artwork) log.info("Found cover-image in " + f);
 				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file);
 				Manager.getInstance().merge(s);
 			}

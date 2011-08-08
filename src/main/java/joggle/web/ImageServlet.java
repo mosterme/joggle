@@ -1,6 +1,5 @@
 package joggle.web;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
@@ -17,11 +16,7 @@ import joggle.data.Song;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,13 +47,10 @@ public class ImageServlet extends HttpServlet {
 				try {
 					AudioFile af = AudioFileIO.read(new File(song.getFile())); Tag tag = af.getTag();
 					Artwork aw = tag.getFirstArtwork(); byte[] ba = aw.getBinaryData();
-					if (ba == null) log.warn(Serializer.toString(aw));
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(aw.getMimeType());
 					response.setContentLength(ba.length);
-					Serializer.copy(new ByteArrayInputStream(ba), response.getOutputStream());
-					response.getOutputStream().flush();
-					response.getOutputStream().close();
+					response.getOutputStream().write(ba);
 				} 
 				catch (Exception e) {
 					e.printStackTrace();
@@ -77,9 +69,9 @@ public class ImageServlet extends HttpServlet {
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(mime);
 					response.setContentLength((int) file.length());
-					Serializer.copy(new FileInputStream(file), response.getOutputStream());
-					response.getOutputStream().flush();
-					response.getOutputStream().close();
+					FileInputStream stream = new FileInputStream(file);
+					Serializer.copy(stream, response.getOutputStream());
+					stream.close();
 				} 
 				else {
 					if (log.isDebugEnabled()) log.debug("image not found: " + id + ", sending redirect: " + redirect);

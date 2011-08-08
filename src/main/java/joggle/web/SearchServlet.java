@@ -48,8 +48,8 @@ public class SearchServlet extends HttpServlet {
 			list = manager.search(keywords);
 		}
 		String result = callback + "({\"d\":" + Serializer.toJson(list) + "})";
-		response.setCharacterEncoding("utf-8"); Writer out = response.getWriter();
-		out.write(result); out.flush(); out.close();
+		response.setCharacterEncoding("utf-8");
+		Writer out = response.getWriter(); out.write(result); 
 		response.setStatus(HttpServletResponse.SC_OK);
 		long t1 = System.currentTimeMillis();
 		log.info("callback: " + callback + ", results: " + list.size() + ", duration: " + (t1 - t0) + "ms");

@@ -53,9 +53,9 @@ public class StreamServlet extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.setContentType("audio/" + song.getType());
 				response.setContentLength((int) file.length());
-				Serializer.copy(new FileInputStream(file), response.getOutputStream());
-				response.getOutputStream().flush();
-				response.getOutputStream().close();
+				FileInputStream stream = new FileInputStream(file);
+				Serializer.copy(stream, response.getOutputStream());
+				stream.close();
 			}
 			else {
 				log.warn("file not found: " + file);
