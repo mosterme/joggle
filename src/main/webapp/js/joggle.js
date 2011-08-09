@@ -19,7 +19,8 @@ function browse(what) {
 
 function brender(data) {
 	$("#brt").tmpl(data).appendTo("#browser");
-	$('#browser').listnav({includeAll: false, showCounts: false});
+	$('#browser').listnav({includeAll: false, noMatchText: "nothing", showCounts: false});
+	$('.ln-letters a').removeAttr("href");
 }
 
 function prender(data) {

@@ -45,7 +45,7 @@ public class Scanner {
 				String album = tag.getFirst(FieldKey.ALBUM);
 				String title = tag.getFirst(FieldKey.TITLE);
 				String file = f.getAbsolutePath();
-				String id = Serializer.sha1(file);
+				String id = Serializer.hash(file);
 				String t = tag.getFirst(FieldKey.TRACK);
 				Integer track = t.matches("[0-9]+") ? Integer.parseInt(t) : null ;
 				String g = tag.getFirst(FieldKey.GENRE);
@@ -54,7 +54,7 @@ public class Scanner {
 				if (brokenEncoding(album,f)) album = fixEncoding(album);
 				if (brokenEncoding(title,f)) title = fixEncoding(title);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
-				if (artwork) log.info("Found cover-image in " + f);
+				if (artwork) log.info("Found artwork in " + f);
 				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file);
 				Manager.getInstance().merge(s);
 			}

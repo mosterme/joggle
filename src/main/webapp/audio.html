@@ -20,9 +20,9 @@
 </div>
 <div class="playlist bubble">
 <nav id="playlist-nav">
-<a id="back" href="#">◄</a><a id="stop" href="#">❚</a><a id="next" href="#">►</a>
-<a id="clear" href="#" class="right">◻</a>
-<a id="clean" href="#" class="right">▭</a>
+<a id="back">◄</a><a id="stop">❚</a><a id="next">►</a>
+<a id="clear" class="right">◻</a>
+<a id="clean" class="right">▭</a>
 </nav>
 <ul id="playlist"></ul>
 </div>
@@ -34,8 +34,8 @@
 </section>
 </article>
 <footer>✰ joggle ✰ v0.01 ✰ ⅿⅿⅺ ✰</footer>
-<script id="brt" type="text/x-jquery-tmpl"><li><a href="#" onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
-<script id="plt" type="text/x-jquery-tmpl"><li><a id="${id}" class="${type} nobr" href="#" onclick="play('${id}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
+<script id="brt" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
+<script id="plt" type="text/x-jquery-tmpl"><li><a id="${id}" class="${type} nobr" onclick="play('${id}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
