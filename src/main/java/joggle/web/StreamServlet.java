@@ -3,7 +3,9 @@ package joggle.web;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+import java.util.TreeSet;
 import java.util.logging.LogManager;
 
 import javax.servlet.ServletException;
@@ -13,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import joggle.data.Manager;
 import joggle.data.Scanner;
-import joggle.data.Serializer;
 import joggle.data.Song;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,16 +29,18 @@ public class StreamServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+		InputStream lpis = Manager.class.getResourceAsStream("/logging.properties");
+		try { LogManager.getLogManager().readConfiguration(lpis); }
+		catch (Exception e) { log.warn(e.getMessage()); }
+		finally { IOUtils.closeQuietly(lpis); }
+
 		Properties properties = new Properties();
-		try {
-			LogManager.getLogManager().readConfiguration(Manager.class.getResourceAsStream("/logging.properties"));
-			properties.load(Manager.class.getResourceAsStream("/joggle.properties"));
-			log.info("Found joggle.properties in classpath");
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		for (String s : properties.stringPropertyNames()) log.info(s + "=" + properties.get(s));
+		InputStream jpis = Manager.class.getResourceAsStream("/joggle.properties");
+		try { properties.load(jpis); log.info("Found joggle.properties in classpath"); }
+		catch (IOException e) { log.warn(e.getMessage()); }
+		finally { IOUtils.closeQuietly(jpis); }
+
+		for (String s : new TreeSet<String>(properties.stringPropertyNames())) log.info(s + "=" + properties.get(s));
 		String directory = properties.getProperty("joggle.music.directory");
 		Scanner scanner = new Scanner();
 		scanner.scan(directory);
@@ -54,8 +58,8 @@ public class StreamServlet extends HttpServlet {
 				response.setContentType("audio/" + song.getType());
 				response.setContentLength((int) file.length());
 				FileInputStream stream = new FileInputStream(file);
-				Serializer.copy(stream, response.getOutputStream());
-				stream.close();
+				try { IOUtils.copy(stream, response.getOutputStream()); }
+				finally { IOUtils.closeQuietly(stream); }
 			}
 			else {
 				log.warn("file not found: " + file);

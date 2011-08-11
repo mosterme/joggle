@@ -1,21 +1,11 @@
 package joggle.data;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import junit.framework.TestCase;
 
 public class SerializerTest extends TestCase {
-
-	public void testCopy() throws IOException {
-		String string = "^1234567890ß´qwertzuiopü+asdfghjklöä#<yxcvbnm,.-";
-		ByteArrayInputStream bis = new ByteArrayInputStream(string.getBytes());
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		Serializer.copy(bis, bos);
-		assertEquals(string, bos.toString());
-	}
 
 	public void testDecode() {
 		assertEquals("R H P", Serializer.decode("R%20H+P"));
@@ -41,15 +31,14 @@ public class SerializerTest extends TestCase {
 		String json = Serializer.toJson(song);
 		assertNotNull(json);
 		assertEquals("{}", json);
-		String string = Serializer.toString(song);
-		assertNotNull(string);
-		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null}",string);
 	}
 
 	public void testToString() {
 		Song song = new Song();
-		String string = Serializer.toString(song);
-		assertNotNull(string);
-		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null}",string);
+		String string1 = Serializer.toString(song);
+		String string2 = song.toString();
+		assertNotNull(string1);
+		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null}",string1);
+		assertEquals(string1, string2);
 	}
 }

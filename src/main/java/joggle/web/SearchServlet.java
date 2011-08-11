@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import joggle.data.Manager;
 import joggle.data.Serializer;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,17 +31,17 @@ public class SearchServlet extends HttpServlet {
 		log.info("request:  " + url + ", callback: " + callback);
 		List list = null;
 		if (url.contains("/type/")) {
-			String type = substringAfter(url, "/type/");
+			String type = FilenameUtils.getName(url);
 			list = manager.byType(type);
 		}
 		else if (url.contains("/artist/")) {
-			String artist = substringAfter(url, "/artist/");
-			if (isEmpty(artist)) list = manager.artists();
+			String artist = FilenameUtils.getName(url);
+			if ("".equals(artist)) list = manager.artists();
 			else list = manager.byArtist(artist);
 		}
 		else if (url.contains("/album/")) {
-			String album = substringAfter(url, "/album/");
-			if (isEmpty(album)) list = manager.albums();
+			String album = FilenameUtils.getName(url);
+			if ("".equals(album)) list = manager.albums();
 			else list = manager.byAlbum(album);
 		}
 		else {
@@ -53,15 +54,5 @@ public class SearchServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 		long t1 = System.currentTimeMillis();
 		log.info("callback: " + callback + ", results: " + list.size() + ", duration: " + (t1 - t0) + "ms");
-	}
-	
-	private static boolean isEmpty(String s) {
-		return s == null || s.length() == 0 || s.trim().length() == 0;
-	}
-
-	private static String substringAfter(String s, String a) {
-		if (isEmpty(s)) return s; if (a == null) return "";
-		int i = s.indexOf(a); if (i == -1) return "";
-		return s.substring(i + a.length());
 	}
 }

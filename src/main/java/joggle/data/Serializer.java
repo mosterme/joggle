@@ -1,9 +1,6 @@
 package joggle.data;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,11 +14,6 @@ public class Serializer {
 	private static final Gson json   = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	private static final Gson string = new GsonBuilder().serializeNulls().create();
 	private static final String hexs = "0123456789ABCDEF";
-
-	public static void copy(InputStream input, OutputStream output) throws IOException {
-		byte[] buffer = new byte[4096]; int n = 0;
-		while (-1 != (n = input.read(buffer))) output.write(buffer, 0, n);
-	}
 
 	public static String decode(String url) {
 		if (url == null) return null; byte[] bytes = url.getBytes();

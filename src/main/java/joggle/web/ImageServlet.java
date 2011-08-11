@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import joggle.data.Manager;
-import joggle.data.Serializer;
 import joggle.data.Song;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOCase;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.Tag;
@@ -28,13 +31,8 @@ public class ImageServlet extends HttpServlet {
 	private static final Manager manager = Manager.getInstance();
 	private static final String redirect = "/joggle/img/128/junk.png";
 
-	private static final FilenameFilter filter = new FilenameFilter() {
-		private final String[] suffixes = {".png", ".jpg", ".jpeg", ".jpe", ".gif"};
-		public boolean accept(File dir, String name) {
-			for (String s : suffixes) if (name.toLowerCase().endsWith(s)) return true;
-			return false;
-		}
-	};
+	private static final String[] suffixes = {".png", ".jpg", ".jpeg", ".jpe", ".gif"};
+	private static final FilenameFilter filter = new SuffixFileFilter(suffixes, IOCase.INSENSITIVE); 
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,11 +47,10 @@ public class ImageServlet extends HttpServlet {
 					Artwork aw = tag.getFirstArtwork(); byte[] ba = aw.getBinaryData();
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(aw.getMimeType());
-					response.setContentLength(ba.length);
 					response.getOutputStream().write(ba);
 				} 
 				catch (Exception e) {
-					e.printStackTrace();
+					log.warn(e.getMessage());
 				} 
 			}
 			else {
@@ -62,16 +59,15 @@ public class ImageServlet extends HttpServlet {
 				File[] files = directory.listFiles(filter);
 				if (files != null && files.length > 0) {
 					File file = files[0];
-					String name = file.getName();
-					String type = name.substring(name.lastIndexOf('.') + 1);
+					String type = FilenameUtils.getExtension(file.getName()).toLowerCase();
 					if (type.startsWith("jp")) type = "jpeg";
 					String mime = "image/" + type;
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(mime);
-					response.setContentLength((int) file.length());
 					FileInputStream stream = new FileInputStream(file);
-					Serializer.copy(stream, response.getOutputStream());
-					stream.close();
+					try { IOUtils.copy(stream, response.getOutputStream()); } 
+					catch (IOException e) { log.warn(e.getMessage()); }
+					finally { IOUtils.closeQuietly(stream); }
 				} 
 				else {
 					if (log.isDebugEnabled()) log.debug("image not found: " + id + ", sending redirect: " + redirect);

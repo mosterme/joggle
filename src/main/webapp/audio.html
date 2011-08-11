@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>✰ joggle ✰</title>
+<meta name="date" content="${build.timestamp}">
+<meta name="revised" content="Revision: ${build.revision}">
+<title>✰ ${project.name} ✰</title>
 <link rel="shortcut icon" href="./img/48/audio.png">
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<header>✰ joggle ✰</header>
+<header>✰ ${project.name} ✰</header>
 <article id="container">
 <nav id="browser-nav" class="ln"></nav>
 <section class="left column">
@@ -20,7 +22,12 @@
 </div>
 <div class="playlist bubble">
 <nav id="playlist-nav">
-<a id="back">◄</a><a id="stop">❚</a><a id="next">►</a>
+<img id="back" src="./img/16/back.png"><img id="stop" src="./img/16/pause.png" alt="./img/16/play.png"><!-- ugly toggle hack--><img id="next" src="./img/16/next.png">
+<!-- stupid filter copy breaks ❚ 
+<a id="back">◄</a>
+<a id="stop">❚</a>
+<a id="next">►</a>
+-->
 <a id="clear" class="right">◻</a>
 <a id="clean" class="right">▭</a>
 </nav>
@@ -29,13 +36,17 @@
 </section>
 <section class="middle column">
 <div class="browse bubble">
+<nav>
+<img id="brart" src="./img/16/artist.png"><img id="bralb" src="./img/16/album.png">
+</nav>
 <ul id="browser"></ul>
 </div>
 </section>
 </article>
-<footer>✰ joggle ✰ v0.01 ✰ ⅿⅿⅺ ✰</footer>
-<script id="brt" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
-<script id="plt" type="text/x-jquery-tmpl"><li><a id="${id}" class="${type} nobr" onclick="play('${id}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
+<footer><details><summary title="Revision: ${build.revision}">✰ ${project.name} ✰ v${project.version} ✰ ⅿⅿⅺ ✰</summary><p>${project.name}, version ${project.version}, revision ${build.revision}, year ${project.inceptionYear}</p></details></footer>
+<script id="tart" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
+<script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album', '{{= escape($data)}}')">${}</a></li></script>
+<script id="plt" type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
