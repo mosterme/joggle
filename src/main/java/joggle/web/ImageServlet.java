@@ -29,7 +29,7 @@ public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 5693065655963128553L;
 	private static final Logger log = LoggerFactory.getLogger(ImageServlet.class);
 	private static final Manager manager = Manager.getInstance();
-	private static final String redirect = "/joggle/img/128/junk.png";
+	private static final String redirect = manager.getProperty("joggle.image.default");
 
 	private static final String[] suffixes = {".png", ".jpg", ".jpeg", ".jpe", ".gif"};
 	private static final FilenameFilter filter = new SuffixFileFilter(suffixes, IOCase.INSENSITIVE); 
@@ -80,6 +80,6 @@ public class ImageServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		long t1 = System.currentTimeMillis();
-		log.info("request: " + id + ", duration: " + (t1 - t0) + "ms");
+		log.info("request: " + id + " duration: " + (t1 - t0) + "ms");
 	}
 }

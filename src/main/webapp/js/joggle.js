@@ -9,12 +9,7 @@ $('#bralb').click(function(){browse('album')});
 
 function beh() { $('.cur').parent().prev().children().first().click() }
 function neh() { $('.cur').parent().next().children().first().click() }
-
-function peh() {
-	var p = document.getElementById('player'); p.paused ? p.play() : p.pause() 
-	var alt = $('#stop').attr('alt'); var src = $('#stop').attr('src');
-	$('#stop').attr('alt', src); $('#stop').attr('src', alt);
-}
+function peh() { var p = document.getElementById('player'); p.paused ? p.play() : p.pause() }
 
 function queue(what, keyword) {
 	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/" + keyword, success: function(data){ prender(data.d) } });
@@ -25,9 +20,8 @@ function browse(what) {
 }
 
 function brender(what, data) {
-	var t = (what == 'album') ? '#talb' : '#tart';
 	$('#browser').empty(); $('#browser-nav').empty();
-	$(t).tmpl(data).appendTo('#browser');
+	$((what == 'album') ? '#talb' : '#tart').tmpl(data).appendTo('#browser');
 	$('#browser').listnav({includeAll: false, noMatchText: "nothing", showCounts: false});
 	$('.ln-letters a').removeAttr('href');
 }

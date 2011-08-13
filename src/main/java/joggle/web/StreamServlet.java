@@ -3,10 +3,6 @@ package joggle.web;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.TreeSet;
-import java.util.logging.LogManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,19 +25,7 @@ public class StreamServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		InputStream lpis = Manager.class.getResourceAsStream("/logging.properties");
-		try { LogManager.getLogManager().readConfiguration(lpis); }
-		catch (Exception e) { log.warn(e.getMessage()); }
-		finally { IOUtils.closeQuietly(lpis); }
-
-		Properties properties = new Properties();
-		InputStream jpis = Manager.class.getResourceAsStream("/joggle.properties");
-		try { properties.load(jpis); log.info("Found joggle.properties in classpath"); }
-		catch (IOException e) { log.warn(e.getMessage()); }
-		finally { IOUtils.closeQuietly(jpis); }
-
-		for (String s : new TreeSet<String>(properties.stringPropertyNames())) log.info(s + "=" + properties.get(s));
-		String directory = properties.getProperty("joggle.music.directory");
+		String directory = manager.getProperty("joggle.music.directory");
 		Scanner scanner = new Scanner();
 		scanner.scan(directory);
 	}

@@ -4,6 +4,7 @@ footer { font-size:small; position:fixed; bottom:5px; }
 header { font-size:xx-large; font-weight:bold;  }
 header, footer { color:#888888; width:100%; }
 a { color:#333366; cursor:pointer; }
+nav a { color:#528 }
 .album { font-size:smaller; }
 .artist { font-weight:bold; margin-top:10px; }
 .browse { text-align:left; width:300px; }

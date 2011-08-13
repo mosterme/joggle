@@ -40,7 +40,7 @@ public class DataTest extends TestCase {
 	public void testAlbums() {
 		List<String> l = manager.albums();
 		assertNotNull(l);
-		assertTrue(l.size() > 0);		
+		assertTrue(l.size() > 0);
 	}
 
 	public void testArtists() {
@@ -86,15 +86,9 @@ public class DataTest extends TestCase {
 		assertEquals(artist, song.getArtist());
 		assertEquals(new Integer(6), song.getTrack());
 		assertEquals(title, song.getTitle());
-		assertEquals(genre, song.getGenre());		
+		assertEquals(genre, song.getGenre());
 	}
-	
-	public void testList() {
-		List<Song> l = manager.list();
-		assertNotNull(l);
-		assertTrue(l.size() > 0);
-	}
-	
+
 	public void testSearch() {
 		List<Song> l = manager.search(search);
 		assertNotNull(l);
@@ -104,14 +98,27 @@ public class DataTest extends TestCase {
 		assertTrue(song.getAlbum().toLowerCase().contains(search)||song.getArtist().toLowerCase().contains(search)||song.getTitle().toLowerCase().contains(search.toLowerCase()));
 	}
 
+	public void testSongs() {
+		List<Song> l = manager.songs();
+		assertNotNull(l);
+		assertTrue(l.size() > 0);
+	}
+
 	public void testArtwork() throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
 		Manager manager = Manager.getInstance();
-		Song song = manager.list().get(0);
+		Song song = manager.songs().get(0);
 		File file = new File(song.getFile());
 		AudioFile af = AudioFileIO.read(file); 
 		Tag tag = af.getTag();
 		Artwork aw = tag.getFirstArtwork();
 		assertNotNull(aw);
 		assertEquals("image/jpeg", aw.getMimeType());
+	}
+
+	public void testGetProperty() {
+		String property = manager.getProperty("joggle.persistence.unit");
+		assertNotNull(property);
+		assertEquals("jogglemem", property);
+		assertNull(manager.getProperty("äöüß"));
 	}
 }

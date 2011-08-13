@@ -13,6 +13,10 @@
 		<servlet-class>joggle.web.ImageServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>status</servlet-name>
+		<servlet-class>joggle.web.StatusServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>stream</servlet-name>
 		<servlet-class>joggle.web.StreamServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
@@ -24,6 +28,10 @@
 	<servlet-mapping>
 		<servlet-name>image</servlet-name>
 		<url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>status</servlet-name>
+		<url-pattern>/status/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>stream</servlet-name>

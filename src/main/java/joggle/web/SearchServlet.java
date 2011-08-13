@@ -28,7 +28,6 @@ public class SearchServlet extends HttpServlet {
 		long t0 = System.currentTimeMillis();
 		String callback = request.getParameter("$callback");
 		String url = Serializer.decode(request.getRequestURI());
-		log.info("request:  " + url + ", callback: " + callback);
 		List list = null;
 		if (url.contains("/type/")) {
 			String type = FilenameUtils.getName(url);
@@ -48,11 +47,25 @@ public class SearchServlet extends HttpServlet {
 			String keywords = url.split("/")[3];
 			list = manager.search(keywords);
 		}
-		String result = callback + "({\"d\":" + Serializer.toJson(list) + "})";
+		String result = "{\"d\":" + Serializer.toJson(list) + "}";
+		if (callback != null) result = callback + "(" + result + ")";
 		response.setCharacterEncoding("utf-8");
 		Writer out = response.getWriter(); out.write(result); 
 		response.setStatus(HttpServletResponse.SC_OK);
 		long t1 = System.currentTimeMillis();
-		log.info("callback: " + callback + ", results: " + list.size() + ", duration: " + (t1 - t0) + "ms");
+		if (log.isInfoEnabled()) {
+			String string = "search: " + format(url, 40)+ " duration: " + (t1 - t0) + "ms" + "\tresults: " + list.size();
+			if (log.isDebugEnabled()) string += "\tcallback: " + callback;
+			log.info(string);
+		}
+	}
+
+	private static String format(String s, int m) {
+		if (log.isDebugEnabled()) return s;
+		String r = s.replaceFirst("/joggle/search/([^/]+)/(.+)$", "$1...$2")
+		.replaceFirst("^album", "album..")
+		.replaceFirst("^type",  "type...")
+		+ ".............................";
+		return r.substring(0, m-2) + "..";
 	}
 }

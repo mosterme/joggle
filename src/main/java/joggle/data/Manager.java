@@ -1,10 +1,16 @@
 package joggle.data;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
+import java.util.TreeSet;
+import java.util.logging.LogManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +18,25 @@ import org.slf4j.LoggerFactory;
 public class Manager {
 
 	private static final Logger log = LoggerFactory.getLogger(Manager.class);
-	private static final EntityManager manager = Persistence.createEntityManagerFactory("jogglemem").createEntityManager();
+	private static final Properties properties = new Properties();
+	
+	static {
+		InputStream stream = Manager.class.getResourceAsStream("/logging.properties");
+		try { LogManager.getLogManager().readConfiguration(stream); }
+		catch (Exception e) { log.warn(e.getMessage()); }
+		finally { IOUtils.closeQuietly(stream); }
+
+		stream = Manager.class.getResourceAsStream("/joggle.properties");
+		try { properties.load(stream); log.info("Found joggle.properties in classpath"); }
+		catch (IOException e) { log.warn(e.getMessage()); }
+		finally { IOUtils.closeQuietly(stream); }
+
+		for (String s : new TreeSet<String>(properties.stringPropertyNames())) {
+			log.info("  " + s + "=" + properties.get(s));
+		}
+	}
+	
+	private static final EntityManager manager = Persistence.createEntityManagerFactory(properties.getProperty("joggle.persistence.unit")).createEntityManager();
 	private static final Manager instance = new Manager();
 
 	private static final String aat = " order by s.artist, s.album, s.track";
@@ -23,6 +47,10 @@ public class Manager {
 	}
 
 	private Manager() {
+	}
+
+	public String getProperty(String key) {
+		return properties.getProperty(key);
 	}
 
 	public List<String> albums() {
@@ -49,10 +77,6 @@ public class Manager {
 		return manager.find(Song.class, id);
 	}
 
-	public List<Song> list() {
-		return manager.createQuery("select s from Song as s" + aat).getResultList();
-	}
-
 	public void merge(Song s) {
 		if (log.isDebugEnabled()) log.debug("merging " + s);
 		manager.getTransaction().begin();
@@ -64,5 +88,9 @@ public class Manager {
 		String search = "%" + keyword.trim().toLowerCase() + "%";
 		if (log.isDebugEnabled()) log.debug("searching " + search);
 		return manager.createQuery("select s from Song as s where lower(s.album) like :search or lower(s.artist) like :search or lower(s.title) like :search" + aat).setParameter("search", search).getResultList();
+	}
+
+	public List<Song> songs() {
+		return manager.createQuery("select s from Song as s" + aat).getResultList();
 	}
 }
