@@ -5,6 +5,10 @@ import java.security.NoSuchAlgorithmException;
 
 import junit.framework.TestCase;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class SerializerTest extends TestCase {
 
 	public void testDecode() {
@@ -38,7 +42,7 @@ public class SerializerTest extends TestCase {
 		String string1 = Serializer.toString(song);
 		String string2 = song.toString();
 		assertNotNull(string1);
-		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null}",string1);
+		assertEquals("Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null,\"modified\":null}",string1);
 		assertEquals(string1, string2);
 	}
 }

@@ -15,9 +15,17 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.datatype.Artwork;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class DataTest extends TestCase {
 
+	private static final Logger log = LoggerFactory.getLogger(DataTest.class);
+	
 	private static final Manager manager = Manager.getInstance();
 	private static final String album = "Rap Trax";
 	private static final String artist = "The Hate Noise";
@@ -102,17 +110,20 @@ public class DataTest extends TestCase {
 		List<Song> l = manager.songs();
 		assertNotNull(l);
 		assertTrue(l.size() > 0);
+		for (Song s : l) log.info(s.toString());
 	}
 
 	public void testArtwork() throws CannotReadException, IOException, TagException, ReadOnlyFileException, InvalidAudioFrameException {
 		Manager manager = Manager.getInstance();
 		Song song = manager.songs().get(0);
-		File file = new File(song.getFile());
-		AudioFile af = AudioFileIO.read(file); 
-		Tag tag = af.getTag();
-		Artwork aw = tag.getFirstArtwork();
-		assertNotNull(aw);
-		assertEquals("image/jpeg", aw.getMimeType());
+		if (song.getArtwork()) {
+			File file = new File(song.getFile());
+			AudioFile af = AudioFileIO.read(file); 
+			Tag tag = af.getTag();
+			Artwork aw = tag.getFirstArtwork();
+			assertNotNull(aw);
+			assertEquals("image/jpeg", aw.getMimeType());
+		}
 	}
 
 	public void testGetProperty() {

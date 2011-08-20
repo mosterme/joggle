@@ -1,4 +1,8 @@
-﻿$().ready(browse('artist'));
+﻿/**
+ * @author  $Author$
+ * @version $Revision$
+ */
+$().ready(fetch()); var albums, artists;
 $('#clean').click(function(){$('.cur').parent().prev().prevAll().remove()});
 $('#clear').click(function(){$('.cur').parent().prevAll().remove(); $('.cur').parent().nextAll().remove()});
 $('#back').click(function(){beh()});
@@ -11,23 +15,20 @@ function beh() { $('.cur').parent().prev().children().first().click() }
 function neh() { $('.cur').parent().next().children().first().click() }
 function peh() { var p = document.getElementById('player'); p.paused ? p.play() : p.pause() }
 
+function fetch() {
+	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/artist/", success: function(data){ artists = data.d; browse('artist'); } });
+	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/album/",  success: function(data){ albums = data.d } });
+}
+
 function queue(what, keyword) {
-	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/" + keyword, success: function(data){ prender(data.d) } });
+	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/" + keyword, success: function(data){ $('#plt').tmpl(data.d).appendTo('#playlist') } });
 }
 
 function browse(what) {
-	$.ajax({ dataType: "jsonp", jsonp: "$callback", url: "./search/" + what + "/", success: function(data){ brender(what, data.d) } });
-}
-
-function brender(what, data) {
 	$('#browser').empty(); $('#browser-nav').empty();
-	$((what == 'album') ? '#talb' : '#tart').tmpl(data).appendTo('#browser');
+	(what == 'album') ? $('#talb').tmpl(albums).appendTo('#browser') : $('#tart').tmpl(artists).appendTo('#browser');
 	$('#browser').listnav({includeAll: false, noMatchText: "nothing", showCounts: false});
 	$('.ln-letters a').removeAttr('href');
-}
-
-function prender(data) {
-	$('#plt').tmpl(data).appendTo('#playlist');
 }
 
 function play(id, artist, album, title, track) {

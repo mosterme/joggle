@@ -24,6 +24,10 @@ import org.jaudiotagger.tag.datatype.Artwork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class ImageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5693065655963128553L;
@@ -31,7 +35,7 @@ public class ImageServlet extends HttpServlet {
 	private static final Manager manager = Manager.getInstance();
 	private static final String redirect = manager.getProperty("joggle.image.default");
 
-	private static final String[] suffixes = {".png", ".jpg", ".jpeg", ".jpe", ".gif"};
+	private static final String[] suffixes = {".gif",".jpe",".jpeg",".jpg",".png"};
 	private static final FilenameFilter filter = new SuffixFileFilter(suffixes, IOCase.INSENSITIVE); 
 
 	@Override
@@ -44,10 +48,10 @@ public class ImageServlet extends HttpServlet {
 				if (log.isDebugEnabled()) log.debug("song has embedded artwork");
 				try {
 					AudioFile af = AudioFileIO.read(new File(song.getFile())); Tag tag = af.getTag();
-					Artwork aw = tag.getFirstArtwork(); byte[] ba = aw.getBinaryData();
+					Artwork aw = tag.getFirstArtwork(); byte[] bytes = aw.getBinaryData();
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(aw.getMimeType());
-					response.getOutputStream().write(ba);
+					response.getOutputStream().write(bytes);
 				} 
 				catch (Exception e) {
 					log.warn(e.getMessage());

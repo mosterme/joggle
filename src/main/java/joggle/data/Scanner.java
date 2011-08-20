@@ -12,6 +12,10 @@ import org.jaudiotagger.tag.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class Scanner {
 
 	private static final Logger log = LoggerFactory.getLogger(Scanner.class);
@@ -55,7 +59,7 @@ public class Scanner {
 				if (brokenEncoding(title,f)) title = fixEncoding(title);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
 				if (artwork) log.info("Found artwork in " + f);
-				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file);
+				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis());
 				Manager.getInstance().merge(s);
 			}
 			else {

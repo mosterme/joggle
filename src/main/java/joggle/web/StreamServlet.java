@@ -17,6 +17,10 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class StreamServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7851993079862260727L;

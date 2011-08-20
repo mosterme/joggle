@@ -18,6 +18,10 @@ import joggle.data.Serializer;
 
 import org.apache.commons.io.FileUtils;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class StatusServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3640618359057072513L;

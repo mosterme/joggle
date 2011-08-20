@@ -16,6 +16,10 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class SearchServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1146058744384688900L;
@@ -62,10 +66,10 @@ public class SearchServlet extends HttpServlet {
 
 	private static String format(String s, int m) {
 		if (log.isDebugEnabled()) return s;
-		String r = s.replaceFirst("/joggle/search/([^/]+)/(.+)$", "$1...$2")
-		.replaceFirst("^album", "album..")
-		.replaceFirst("^type",  "type...")
-		+ ".............................";
-		return r.substring(0, m-2) + "..";
+		String r = s.replaceFirst("/joggle/search/([^/]+)/(.+)$", "$1..$2")
+		.replaceFirst("^album", "album.")
+		.replaceFirst("^type",  "type..")
+		+ "............................";
+		return r.substring(0, m-1) + ".";
 	}
 }

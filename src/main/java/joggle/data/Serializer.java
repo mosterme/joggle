@@ -9,6 +9,10 @@ import java.text.Normalizer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 public class Serializer {
 
 	private static final Gson json   = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

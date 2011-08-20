@@ -1,5 +1,7 @@
+/* $Id$ */
 article { display:inline-block; margin-top:20px; }
 body { background:#ffffff url(../img/128/audio.png) no-repeat fixed bottom right; font-family:sans-serif; text-align:center; }
+details { background-color:#ffffff; display:inline-block; padding:5px }
 footer { font-size:small; position:fixed; bottom:5px; }
 header { font-size:xx-large; font-weight:bold;  }
 header, footer { color:#888888; width:100%; }

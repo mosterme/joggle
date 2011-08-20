@@ -14,6 +14,10 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author  $Author$
+ * @version $Revision$
+ */
 @SuppressWarnings("unchecked")
 public class Manager {
 
@@ -32,7 +36,7 @@ public class Manager {
 		finally { IOUtils.closeQuietly(stream); }
 
 		for (String s : new TreeSet<String>(properties.stringPropertyNames())) {
-			log.info("  " + s + "=" + properties.get(s));
+			log.info("> " + s + "=" + properties.get(s));
 		}
 	}
 	
