@@ -26,7 +26,12 @@ function queue(what, keyword) {
 
 function browse(what) {
 	$('#browser').empty(); $('#browser-nav').empty();
-	(what == 'album') ? $('#talb').tmpl(albums).appendTo('#browser') : $('#tart').tmpl(artists).appendTo('#browser');
+	if (what == 'album') {
+		$('#talb').tmpl(albums).appendTo('#browser'); $('#bralb').hide(); $('#brart').show();
+	}
+	else {
+		$('#tart').tmpl(artists).appendTo('#browser'); $('#brart').hide(); $('#bralb').show();
+	}
 	$('#browser').listnav({includeAll: false, noMatchText: "nothing", showCounts: false});
 	$('.ln-letters a').removeAttr('href');
 }
@@ -40,5 +45,5 @@ function play(id, artist, album, title, track) {
 	$('#album').text(unescape(album));
 	$('#title').text(unescape(title));
 	$('#cover').attr('src','./image/' + id);
-	document.title = "✰ " + unescape(title) + " ✰ " + unescape(artist) + " ✰"
+	document.title = "* " + unescape(title) + " * " + unescape(artist) + " *";
 }

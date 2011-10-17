@@ -5,45 +5,43 @@
 <meta name="author" content="$Author$">
 <meta name="date" content="$Date$">
 <meta name="revised" content="$Revision$">
-<title>✰ ${project.name} ✰</title>
-<link rel="shortcut icon" href="./img/48/audio.png">
+<title>* ${project.name} *</title>
+<link rel="shortcut icon" href="./img/buuf/favicon.png">
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<header>✰ ${project.name} ✰</header>
-<article id="container">
+<h1>* ${project.name} *</h1>
+<div id="container">
 <nav id="browser-nav" class="ln"></nav>
-<section class="left column">
+<nav id="joggler-nav" class="tn">
+<img id="brart" title="browse artists" src="./img/silk/album.png"/>
+<img id="bralb" title="browse albums"  src="./img/silk/group.png"/> &#160;&#160;
+<img id="back"  title="back" src="./img/silk/back.png"/>
+<img id="next"  title="next" src="./img/silk/next.png"/> &#160;&#160;
+<img id="clear" title="empty playlist" src="./img/silk/page_delete.png"/>
+<img id="clean" title="clean playlist" src="./img/silk/page_collapse.png"/>
+</nav>
+<div class="column">
 <div class="playinfo bubble">
-<div class="image bubble"><img class="cover" id="cover" src="./img/128/junk.png" /></div>
+<div class="image bubble"><img class="cover" id="cover" src="./img/buuf/junk.png" /></div>
 <div class="artist nobr" id="artist">Artist</div>
 <div class="album nobr" id="album">Album</div>
 <div class="title nobr" id="title">Title</div>
 <div class="audio nobr" id="audio"><audio id="player" controls="controls" onended="neh()" src="#"></audio></div>
 </div>
 <div class="playlist bubble">
-<nav id="playlist-nav">
-<a id="back">◄</a><a id="stop">&#10074;</a><a id="next">►</a>
-<a id="clear" class="right">◻</a>
-<a id="clean" class="right">▭</a>
-</nav>
 <ul id="playlist"></ul>
 </div>
-</section>
-<section class="middle column">
+</div>
+<div class="column">
 <div class="browse bubble">
-<nav>
-<a id="brart" title="browse artists">A</a>
-<a id="bralb" title="browse albums">O</a>
-</nav>
 <ul id="browser"></ul>
 </div>
-</section>
-</article>
-<footer><details><summary title="Revision: ${build.revision}">✰ ${project.name} ✰ v${project.version} ✰ ⅿⅿⅺ ✰</summary><p><a href="${project.url}">${project.name}</a>, version ${project.version}, revision ${build.revision}, year ${project.inceptionYear}</p></details></footer>
+</div>
+</div>
 <script id="tart" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
-<script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album', '{{= escape($data)}}')">${}</a></li></script>
-<script id="plt" type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
+<script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album',  '{{= escape($data)}}')">${}</a></li></script>
+<script id="plt"  type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
