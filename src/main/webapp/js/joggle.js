@@ -45,5 +45,5 @@ function play(id, artist, album, title, track) {
 	$('#album').text(unescape(album));
 	$('#title').text(unescape(title));
 	$('#cover').attr('src','./image/' + id);
-	document.title = "* " + unescape(title) + " * " + unescape(artist) + " *";
+	document.title = "✰ " + unescape(title) + " ✰ " + unescape(artist) + " ✰";
 }

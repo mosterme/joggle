@@ -78,33 +78,26 @@
 	</dependencies>
 	<build>
 		<finalName>${project.name}</finalName>
-		<filters>
-			<filter>target/build.properties</filter>
-		</filters>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.6</version>
 				<executions>
 					<execution>
-						<phase>validate</phase>
+						<phase>compile</phase>
 						<configuration>
-							<tasks>
+							<target name="build.properties">
 								<tstamp><format property="timestamp" pattern="yyyy-MM-dd'T'HH:mm:ssZ" locale="en"/></tstamp>
 								<exec outputproperty="revision" executable="svnversion" failifexecutionfails="false"/>
-								<echo>writing target/build.properties</echo>
-								<echo>build.revision=${revision}</echo>
-								<echo>build.timestamp=${timestamp}</echo>
-								<echo file="target/build.properties">build.revision=${revision}${line.separator}</echo>
-								<echo file="target/build.properties" append="true">build.timestamp=${timestamp}${line.separator}</echo>
+								<echo>appending to target/classes/joggle.properties</echo>
+								<echo>joggle.application.revision=Revision: ${revision}</echo>
+								<echo>joggle.application.timestamp=${timestamp}</echo>
+								<echo>joggle.application.version=Version: ${project.version}</echo>
 								<echo></echo>
-							</tasks>
+								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.revision=Revision: ${revision}</echo>
+								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.timestamp=${timestamp}</echo>
+								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.version=Version: ${project.version}</echo>
+							</target>
 						</configuration>
 						<goals>
 							<goal>run</goal>
@@ -116,29 +109,6 @@
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.26</version>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>src</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-				<configuration>
-					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
-					<webResources>
-						<resource>
-							<directory>src/main/webapp</directory>
-							<filtering>true</filtering>
-						</resource>
-					</webResources>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
