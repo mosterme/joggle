@@ -1,6 +1,7 @@
 /* $Id$ */
 a { color:#333366; cursor:pointer; }
 body { background:#ffffff url(../img/buuf/audio.png) no-repeat fixed bottom right; font-family:sans-serif; text-align:center; }
+button { background:#ffffff !important; font-size: small !important;}
 h1 { color:#888888; }
 nav img { cursor:pointer; }
 .album { font-size:smaller; }
