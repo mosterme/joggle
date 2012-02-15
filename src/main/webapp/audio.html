@@ -8,16 +8,18 @@
 <title>✰ joggle ✰</title>
 <link rel="shortcut icon" href="./img/buuf/favicon.png">
 <link rel="stylesheet" href="./css/style.css">
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css"/>
 </head>
 <body>
 <h1>✰ joggle ✰</h1>
 <div id="container">
 <nav id="browser-nav" class="ln"></nav>
 <nav id="joggler-nav" class="tn">
-<button id="brart">browse artists</button><button id="bralb">browse albums</button>
-<button id="back">back</button><button id="next">next</button>
-<button id="clear">empty playlist</button><button id="clean">clean playlist</button>
+<img id="brart" title="browse artists" src="./img/wds/album.png"/>
+<img id="bralb" title="browse albums"  src="./img/wds/group.png"/> &#160;&#160;
+<img id="back"  title="back" src="./img/wds/previous.png"/>
+<img id="next"  title="next" src="./img/wds/next.png"/> &#160;&#160;
+<img id="clear" title="empty playlist" src="./img/wds/trash.png"/>
+<img id="clean" title="clean playlist" src="./img/wds/erase.png"/>
 </nav>
 <div class="column">
 <div class="playinfo bubble">
@@ -41,7 +43,6 @@
 <script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album',  '{{= escape($data)}}')">${}</a></li></script>
 <script id="plt"  type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
 <script src="./js/joggle.js"></script>
