@@ -33,7 +33,7 @@ public class StatusServlet extends HttpServlet {
 		out.write(Serializer.toJson(status())); 
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static Map status() {
 		Manager manager = Manager.getInstance();
 		int i = manager.albums().size(), j = manager.artists().size(), k = manager.songs().size();

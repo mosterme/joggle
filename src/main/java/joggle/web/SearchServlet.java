@@ -27,7 +27,7 @@ public class SearchServlet extends HttpServlet {
 	private static final Manager manager = Manager.getInstance();
 
 	
-	@Override @SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long t0 = System.currentTimeMillis();
 		String callback = request.getParameter("$callback");

@@ -66,8 +66,8 @@ public class Scanner {
 				log.warn("No meta tag found " + f);
 			}
 		}
-		catch (Exception e) {
-			log.warn(e.getMessage());
+		catch (Throwable t) {
+			log.warn(t.getMessage());
 			log.warn(f.getAbsolutePath());
 		}
 	}
