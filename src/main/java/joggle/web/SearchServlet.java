@@ -26,7 +26,6 @@ public class SearchServlet extends HttpServlet {
 	private static final Logger log = LoggerFactory.getLogger(SearchServlet.class);
 	private static final Manager manager = Manager.getInstance();
 
-	
 	@SuppressWarnings("rawtypes")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long t0 = System.currentTimeMillis();

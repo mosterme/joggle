@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.FileUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileFilter;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -20,13 +21,15 @@ public class Scanner {
 
 	private static final Logger log = LoggerFactory.getLogger(Scanner.class);
 	private final FileFilter filter = new AudioFileFilter(true);
+	private long bytes, directories, files;
 
 	public void scan(String s) {
-		log.info("scanning " + s);
+		log.info("Scanning " + s);
 		long t0 = System.currentTimeMillis();
 		scan(new File(s));
 		long t1 = System.currentTimeMillis();
-		log.info("scanning " + s + " took " + (t1-t0) + " millis");
+		log.info("Scanning " + s + " took " + (t1-t0) + " millis for " + FileUtils.byteCountToDisplaySize(bytes));
+		log.info("Found " + files + " music files in " + directories + " directories");
 	}
 
 	public void scan(File d) {
@@ -34,6 +37,7 @@ public class Scanner {
 			if (log.isDebugEnabled()) log.debug("scanning " + d);
 			File[] fa = d.listFiles(filter);
 			for (File f : fa) scan(f);
+			directories++;
 		}
 		else if (d.isFile()) {
 			handle(d);
@@ -65,6 +69,7 @@ public class Scanner {
 			else {
 				log.warn("No meta tag found " + f);
 			}
+			files++; bytes += f.length();
 		}
 		catch (Throwable t) {
 			log.warn(t.getMessage());
