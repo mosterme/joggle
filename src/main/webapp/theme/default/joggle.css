@@ -1,8 +1,7 @@
 /* $Id$ */
-a { color:#333366; cursor:pointer; }
-body { background:#ffffff url(../img/buuf/audio.png) no-repeat fixed bottom right; font-family:sans-serif; text-align:center; }
+a, .fb { color:#333366; cursor:pointer; }
+body { background:#ffffff url(./img/audio.png) no-repeat fixed bottom right; font-family:sans-serif; text-align:center; }
 h1 { color:#888888; }
-.fb { cursor:pointer; }
 .album { font-size:smaller; }
 .artist { font-weight:bold; margin-top:10px; }
 .browse { text-align:left; width:300px; }
@@ -22,4 +21,4 @@ h1 { color:#888888; }
 .playinfo, .playlist { width:435px; text-align:left; overflow:hidden; }
 .playlist { margin:15px auto; }
 .title { font-size:larger; font-weight:bold; margin:5px; }
-@media all and (max-width: 800px) { .browse { text-align:left; width:435px; } }
+@media all and (max-width: 800px) { .browse { width:435px; } }
