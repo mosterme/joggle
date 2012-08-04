@@ -16,7 +16,7 @@ function go() {
 // Z Previous Track // X Play/Restart/Unpause // C Pause/Unpause // V Stop // B Next Track
 
 function beh() { $('.cur').parent().prev().children().first().click() }
-function neh() { $('.cur').parent().next().children().first().click() }
+function neh() { $('.cur').parent().prev().prevAll().remove(); $('.cur').parent().next().children().first().click() }
 function peh() { var p = document.getElementById('player'); p.paused ? p.play() : p.pause() }
 
 function queue(what, keyword) {
@@ -26,11 +26,11 @@ function queue(what, keyword) {
 function browse(what) {
 	$('#browser').empty(); $('#browser-nav').empty();
 	if (what == 'album')
-	{ 
+	{
 		$('#talb').tmpl(albums).appendTo('#browser'); $('#bralb').hide(); $('#brart').show();
 	}
 	else
-	{ 
+	{
 		$('#tart').tmpl(artists).appendTo('#browser'); $('#brart').hide(); $('#bralb').show();
 	}
 	$('#browser').listnav({includeAll: false, noMatchText: "nothing", showCounts: false});

@@ -15,8 +15,6 @@
 <nav id="browser-nav" class="ln"></nav>
 <div class="column">
 <div class="playinfo bubble">
-<img class="fb" id="back" title="back" src="./img/wds/back.png"/>
-<img class="fb" id="next" title="next" src="./img/wds/next.png"/>
 <div class="image bubble"><img class="cover" id="cover" src="./img/buuf/junk.png" /></div>
 <div class="artist nobr" id="artist">Artist</div>
 <div class="album nobr" id="album">Album</div>
@@ -24,8 +22,11 @@
 <div class="audio nobr" id="audio"><audio id="player" controls="controls" onended="neh()" src="#"></audio></div>
 </div>
 <div class="playlist bubble">
-<img class="fb" id="clear" title="empty playlist" src="./img/wds/trash.png"/>
-<img class="fb" id="clean" title="clean playlist" src="./img/wds/erase.png"/>
+&#160;<img class="fb" id="clear" title="empty playlist" src="./img/wds/trash.png"/>
+&#160;<img class="fb" id="clean" title="clean playlist" src="./img/wds/erase.png"/>
+&#160;&#160;&#160;
+<img class="fb" id="back" title="back" src="./img/wds/back.png"/>
+<img class="fb" id="next" title="next" src="./img/wds/next.png"/>
 <ul id="playlist"></ul>
 </div>
 </div>
@@ -40,7 +41,7 @@
 <script id="tart" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
 <script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album',  '{{= escape($data)}}')">${}</a></li></script>
 <script id="plt"  type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="http://www.ihwy.com/labs/downloads/jquery-listnav/2.1/jquery.listnav.pack-2.1.js"></script>
 <script src="./js/joggle.js"></script>

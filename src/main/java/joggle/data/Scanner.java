@@ -28,8 +28,11 @@ public class Scanner {
 		long t0 = System.currentTimeMillis();
 		scan(new File(s));
 		long t1 = System.currentTimeMillis();
-		log.info("Scanning " + s + " took " + (t1-t0) + " millis for " + FileUtils.byteCountToDisplaySize(bytes));
-		log.info("Found " + files + " music files in " + directories + " directories");
+		log.info("> Scan report for " + s);
+		log.info(">   audio files   " + files);
+		log.info(">   direcories    " + directories);
+		log.info(">   scanned bytes " + FileUtils.byteCountToDisplaySize(bytes));
+		log.info(">   time elapsed  " + (t1 - t0) + " millis");
 	}
 
 	public void scan(File d) {
