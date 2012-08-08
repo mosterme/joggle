@@ -23,7 +23,7 @@ public class Manager {
 
 	private static final Logger log = LoggerFactory.getLogger(Manager.class);
 	private static final Properties properties = new Properties();
-	
+
 	static {
 		InputStream stream = Manager.class.getResourceAsStream("/logging.properties");
 		try { LogManager.getLogManager().readConfiguration(stream); }
@@ -39,7 +39,7 @@ public class Manager {
 			log.info("> " + s + "=" + properties.get(s));
 		}
 	}
-	
+
 	private static final EntityManager manager = Persistence.createEntityManagerFactory(properties.getProperty("joggle.persistence.unit")).createEntityManager();
 	private static final Manager instance = new Manager();
 
@@ -72,7 +72,7 @@ public class Manager {
 	public List<Song> byArtist(String artist) {
 		return manager.createQuery("select s from Song as s where s.artist = ?" + aat).setParameter(1, artist).getResultList();
 	}
-	
+
 	public List<Song> byType(String type) {
 		return manager.createQuery("select s from Song as s where s.type = ?" + aat).setParameter(1, type).getResultList();
 	}

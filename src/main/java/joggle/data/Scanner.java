@@ -44,6 +44,7 @@ public class Scanner {
 		}
 		else if (d.isFile()) {
 			handle(d);
+			files++; bytes += d.length();
 		}
 	}
 
@@ -72,7 +73,6 @@ public class Scanner {
 			else {
 				log.warn("No meta tag found " + f);
 			}
-			files++; bytes += f.length();
 		}
 		catch (Throwable t) {
 			log.warn(t.getMessage());
