@@ -37,9 +37,6 @@ public class DataTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		LogManager.getLogManager().readConfiguration(Manager.class.getResourceAsStream("/logging.properties"));
-	}
-
-	public void testScanner() throws Exception {
 		String directory = "src/test/resources";
 		Scanner scanner = new Scanner();
 		scanner.scan(directory);
