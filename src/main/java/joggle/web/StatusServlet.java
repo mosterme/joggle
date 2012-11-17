@@ -38,16 +38,21 @@ public class StatusServlet extends HttpServlet {
 		Manager manager = Manager.getInstance();
 		int i = manager.albums().size(), j = manager.artists().size(), k = manager.songs().size();
 		Map result = new TreeMap();
-		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
+		result.put("application.revision", manager.getProperty("joggle.application.revision"));
+		result.put("application.timestamp", manager.getProperty("joggle.application.timestamp"));
+		result.put("application.version", manager.getProperty("joggle.application.version"));		
+		result.put("manager.albums", i);
+		result.put("manager.artists", j);
+		result.put("manager.songs", k);
 		Runtime rt = Runtime.getRuntime();
-		result.put("vmStartTime", df.format(rb.getStartTime()));
-		result.put("vmUptime", rb.getUptime()); // TODO: format this 
-		result.put("memTotal", FileUtils.byteCountToDisplaySize(rt.totalMemory()));
-		result.put("memFree", FileUtils.byteCountToDisplaySize(rt.freeMemory()));
-		result.put("memMax", FileUtils.byteCountToDisplaySize(rt.maxMemory()));
-		result.put("jgAlbums", i);
-		result.put("jgArtists", j);
-		result.put("jgSongs", k);
+		result.put("memory.free", FileUtils.byteCountToDisplaySize(rt.freeMemory()));
+		result.put("memory.max", FileUtils.byteCountToDisplaySize(rt.maxMemory()));
+		result.put("memory.total", FileUtils.byteCountToDisplaySize(rt.totalMemory()));
+		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
+		result.put("vm.started", df.format(rb.getStartTime()));
+		result.put("vm.uptime", rb.getUptime()); // TODO: format this 
+		// OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+		// result.put("system.load", os.getSystemLoadAverage());
 		return result;
 	}
 }

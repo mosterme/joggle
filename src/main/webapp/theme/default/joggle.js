@@ -2,8 +2,8 @@
 var albums, artists; $().ready(go());
 
 function go() {
-	$.ajax({ dataType: "json", url: "./search/artist/", success: function(data){ artists = data.d; browse('artist') } });
-	$.ajax({ dataType: "json", url: "./search/album/",  success: function(data){ albums = data.d } });
+	$.ajax({ dataType: "json", url: "/joggle/search/artist/", success: function(data){ artists = data.d; browse('artist') } });
+	$.ajax({ dataType: "json", url: "/joggle/search/album/",  success: function(data){ albums = data.d } });
 	$('#bralb').click(function(){browse('album')});
 	$('#brart').click(function(){browse('artist')});
 	$('#clean').click(function(){$('.cur').parent().prev().prevAll().remove()});
@@ -20,7 +20,7 @@ function neh() { $('.cur').parent().prev().prevAll().remove(); $('.cur').parent(
 function peh() { var p = document.getElementById('player'); p.paused ? p.play() : p.pause() }
 
 function queue(what, keyword) {
-	$.ajax({ dataType: "json", url: "./search/" + what + "/" + keyword, success: function(data){ $('#plt').tmpl(data.d).appendTo('#playlist') } });
+	$.ajax({ dataType: "json", url: "/joggle/search/" + what + "/" + keyword, success: function(data){ $('#plt').tmpl(data.d).appendTo('#playlist') } });
 }
 
 function browse(what) {
@@ -40,11 +40,11 @@ function browse(what) {
 function play(id, artist, album, title, track) {
 	$('.cur').removeClass('cur');
 	$('#'+id).addClass('cur');
-	$('#player').attr('src','./stream/' + id);
+	$('#player').attr('src','/joggle/stream/' + id);
 	$('#player').attr('autoplay','autoplay');
 	$('#artist').text(unescape(artist));
 	$('#album').text(unescape(album));
 	$('#title').text(unescape(title));
-	$('#cover').attr('src','./image/' + id);
+	$('#cover').attr('src','/joggle/image/' + id);
 	document.title = "✰ " + unescape(title) + " ✰ " + unescape(artist) + " ✰";
 }

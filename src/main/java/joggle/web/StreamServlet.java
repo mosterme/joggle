@@ -29,7 +29,7 @@ public class StreamServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		String directory = manager.getProperty("joggle.music.directory");
+		String directory = manager.getProperty("joggle.music.directory").replace("%userprofile%", System.getProperty("user.home"));
 		Scanner scanner = new Scanner();
 		scanner.scan(directory);
 	}
