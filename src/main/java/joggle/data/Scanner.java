@@ -53,22 +53,25 @@ public class Scanner {
 			AudioFile af = AudioFileIO.read(f); Tag tag = af.getTag();
 			String type = af.getAudioHeader().getEncodingType().substring(0, 3).toLowerCase();
 			if (tag != null) {
-				String artist = tag.getFirst(FieldKey.ARTIST); 
+				Manager manager = Manager.getInstance();
+				String artist = tag.getFirst(FieldKey.ARTIST);
 				String album = tag.getFirst(FieldKey.ALBUM);
 				String title = tag.getFirst(FieldKey.TITLE);
 				String file = f.getAbsolutePath();
 				String id = Serializer.hash(file);
 				String t = tag.getFirst(FieldKey.TRACK);
 				Integer track = t.matches("[0-9]+") ? Integer.parseInt(t) : null ;
-				String g = tag.getFirst(FieldKey.GENRE);
-				String genre = g.length() > 0 ? g : null;
+				String genre = tag.getFirst(FieldKey.GENRE);
+				if (genre.matches("\\(?[0-9]{1,3}\\)?")) genre = manager.getGenre(genre.replace("(","").replace(")", ""));
+				String album_artist = tag.getFirst(FieldKey.ALBUM_ARTIST);
 				if (brokenEncoding(artist,f)) artist = fixEncoding(artist);
+				if (brokenEncoding(album_artist,f)) album_artist = fixEncoding(album_artist);
 				if (brokenEncoding(album,f)) album = fixEncoding(album);
 				if (brokenEncoding(title,f)) title = fixEncoding(title);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
 				if (artwork) log.info("Found artwork in " + f);
-				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis());
-				Manager.getInstance().merge(s);
+				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), album_artist);
+				manager.merge(s);
 			}
 			else {
 				log.warn("No meta tag found " + f);

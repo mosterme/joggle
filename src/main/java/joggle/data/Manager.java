@@ -23,6 +23,7 @@ public class Manager {
 
 	private static final Logger log = LoggerFactory.getLogger(Manager.class);
 	private static final Properties properties = new Properties();
+	private static final Properties genres = new Properties();
 
 	static {
 		InputStream stream = Manager.class.getResourceAsStream("/logging.properties");
@@ -38,6 +39,11 @@ public class Manager {
 		for (String s : new TreeSet<String>(properties.stringPropertyNames())) {
 			log.info("> " + s + "=" + properties.get(s));
 		}
+
+		stream = Manager.class.getResourceAsStream("/id3v1.properties");
+		try { genres.load(stream); log.info("Found id3v1.properties in classpath"); }
+		catch (IOException e) { log.warn(e.getMessage()); }
+		finally { IOUtils.closeQuietly(stream); }
 	}
 
 	private static final EntityManager manager = Persistence.createEntityManagerFactory(properties.getProperty("joggle.persistence.unit")).createEntityManager();
@@ -57,12 +63,25 @@ public class Manager {
 		return properties.getProperty(key);
 	}
 
+	public String getGenre(String key) {
+		if (log.isTraceEnabled()) log.trace(key + " = " + genres.getProperty(key));
+		return genres.getProperty(key);
+	}
+
 	public List<String> albums() {
 		return manager.createQuery("select distinct(s.album) from Song as s order by s.album").getResultList();
 	}
 
 	public List<String> artists() {
 		return manager.createQuery("select distinct(s.artist) from Song as s order by s.artist").getResultList();
+	}
+
+	public List<String> genres() {
+		return manager.createQuery("select distinct(s.genre) from Song as s order by s.genre").getResultList();
+	}
+
+	public List<String> albumArtists() {
+		return manager.createQuery("select distinct(s.albumArtist) from Song as s order by s.albumArtist").getResultList();
 	}
 
 	public List<Song> byAlbum(String album) {

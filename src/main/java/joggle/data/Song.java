@@ -22,11 +22,12 @@ public class Song implements Serializable {
 	private Boolean artwork;
 	private String file;
 	private Long modified;
+	private String albumArtist;
 
 	public Song() {
 	}
 
-	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, Boolean artwork, String file, Long modified) {
+	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, Boolean artwork, String file, Long modified, String album_artist) {
 		this.id = id;
 		this.type = type;
 		this.artist = artist;
@@ -37,6 +38,7 @@ public class Song implements Serializable {
 		this.artwork = artwork;
 		this.file = file;
 		this.modified = modified;
+		this.albumArtist = album_artist;
 	}
 
 	@Id
@@ -118,6 +120,14 @@ public class Song implements Serializable {
 
 	public void setModified(Long modified) {
 		this.modified = modified;
+	}
+
+	public String getAlbumArtist() {
+		return albumArtist;
+	}
+
+	public void setAlbumArtist(String album_artist) {
+		this.albumArtist = album_artist;
 	}
 
 	@Override
