@@ -53,11 +53,11 @@ public class SearchServlet extends HttpServlet {
 		String result = "{\"d\":" + Serializer.toJson(list) + "}";
 		if (callback != null) result = callback + "(" + result + ")";
 		response.setCharacterEncoding("utf-8");
-		Writer out = response.getWriter(); out.write(result); 
+		Writer out = response.getWriter(); out.write(result);
 		response.setStatus(HttpServletResponse.SC_OK);
 		long t1 = System.currentTimeMillis();
 		if (log.isInfoEnabled()) {
-			String string = "search: " + format(url, 40)+ " duration: " + (t1 - t0) + "ms" + "\tresults: " + list.size();
+			String string = "search: " + format(url, 40) + " duration: " + (t1 - t0) + "ms" + "\tresults: " + list.size();
 			if (log.isDebugEnabled()) string += "\tcallback: " + callback;
 			log.info(string);
 		}
@@ -69,6 +69,6 @@ public class SearchServlet extends HttpServlet {
 		.replaceFirst("^album", "album.")
 		.replaceFirst("^type",  "type..")
 		+ "............................";
-		return r.substring(0, m-1) + ".";
+		return r.substring(0, m - 1) + ".";
 	}
 }

@@ -28,8 +28,8 @@ public class Serializer {
 			else if (b == '%') {
 				int u = Character.digit((char) bytes[++i], 16);
 				int l = Character.digit((char) bytes[++i], 16);
-				bos.write((char) ((u << 4) + l));
-			} 
+				bos.write((char) (u << 4) + l);
+			}
 			else bos.write(b);
 		}
 		return bos.toString();
@@ -43,7 +43,7 @@ public class Serializer {
 	public static final String hex(byte[] bytes) {
 		if (bytes == null) return null;
 		StringBuilder s = new StringBuilder(2 * bytes.length);
-		for (final byte b : bytes) s.append(hexs.charAt((b & 0xF0) >> 4)).append(hexs.charAt((b & 0x0F)));
+		for (final byte b : bytes) s.append(hexs.charAt((b & 0xF0) >> 4)).append(hexs.charAt(b & 0x0F));
 		return s.toString();
 	}
 

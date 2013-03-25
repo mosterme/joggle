@@ -39,7 +39,7 @@ public class SerializerTest extends TestCase {
 
 	public void testToString() {
 		Song song = new Song();
-		String string0 = "Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null,\"modified\":null}";
+		String string0 = "Song{\"id\":null,\"type\":null,\"artist\":null,\"album\":null,\"track\":null,\"title\":null,\"genre\":null,\"artwork\":null,\"file\":null,\"modified\":null,\"albumArtist\":null}";
 		String string1 = Serializer.toString(song);
 		String string2 = song.toString();
 		assertNotNull(string1);

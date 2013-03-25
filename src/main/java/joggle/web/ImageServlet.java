@@ -35,8 +35,8 @@ public class ImageServlet extends HttpServlet {
 	private static final Manager manager = Manager.getInstance();
 	private static final String redirect = manager.getProperty("joggle.image.default");
 
-	private static final String[] suffixes = {".gif",".jpe",".jpeg",".jpg",".png"};
-	private static final FilenameFilter filter = new SuffixFileFilter(suffixes, IOCase.INSENSITIVE); 
+	private static final String[] suffixes = {".gif", ".jpe", ".jpeg", ".jpg", ".png"};
+	private static final FilenameFilter filter = new SuffixFileFilter(suffixes, IOCase.INSENSITIVE);
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,10 +52,10 @@ public class ImageServlet extends HttpServlet {
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(aw.getMimeType());
 					response.getOutputStream().write(bytes);
-				} 
+				}
 				catch (Exception e) {
 					log.warn(e.getMessage());
-				} 
+				}
 			}
 			else {
 				if (log.isDebugEnabled()) log.debug("search in directory");
@@ -69,10 +69,10 @@ public class ImageServlet extends HttpServlet {
 					response.setStatus(HttpServletResponse.SC_OK);
 					response.setContentType(mime);
 					FileInputStream stream = new FileInputStream(file);
-					try { IOUtils.copy(stream, response.getOutputStream()); } 
+					try { IOUtils.copy(stream, response.getOutputStream()); }
 					catch (IOException e) { log.warn(e.getMessage()); }
 					finally { IOUtils.closeQuietly(stream); }
-				} 
+				}
 				else {
 					if (log.isDebugEnabled()) log.debug("image not found: " + id + ", sending redirect: " + redirect);
 					response.sendRedirect(redirect);

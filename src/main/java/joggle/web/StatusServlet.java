@@ -30,7 +30,7 @@ public class StatusServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Writer out = response.getWriter();
-		out.write(Serializer.toJson(status())); 
+		out.write(Serializer.toJson(status()));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -40,7 +40,7 @@ public class StatusServlet extends HttpServlet {
 		Map result = new TreeMap();
 		result.put("application.revision", manager.getProperty("joggle.application.revision"));
 		result.put("application.timestamp", manager.getProperty("joggle.application.timestamp"));
-		result.put("application.version", manager.getProperty("joggle.application.version"));		
+		result.put("application.version", manager.getProperty("joggle.application.version"));
 		result.put("manager.albums", i);
 		result.put("manager.artists", j);
 		result.put("manager.songs", k);
@@ -50,7 +50,7 @@ public class StatusServlet extends HttpServlet {
 		result.put("memory.total", FileUtils.byteCountToDisplaySize(rt.totalMemory()));
 		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
 		result.put("vm.started", df.format(rb.getStartTime()));
-		result.put("vm.uptime", rb.getUptime()); // TODO: format this 
+		result.put("vm.uptime", rb.getUptime()); // TODO: format this
 		// OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
 		// result.put("system.load", os.getSystemLoadAverage());
 		return result;

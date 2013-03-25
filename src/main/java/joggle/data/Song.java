@@ -27,7 +27,7 @@ public class Song implements Serializable {
 	public Song() {
 	}
 
-	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, Boolean artwork, String file, Long modified, String album_artist) {
+	public Song(String id, String type, String artist, String album, Integer track, String title, String genre, Boolean artwork, String file, Long modified, String albumArtist) {
 		this.id = id;
 		this.type = type;
 		this.artist = artist;
@@ -38,7 +38,7 @@ public class Song implements Serializable {
 		this.artwork = artwork;
 		this.file = file;
 		this.modified = modified;
-		this.albumArtist = album_artist;
+		this.albumArtist = albumArtist;
 	}
 
 	@Id
@@ -126,8 +126,8 @@ public class Song implements Serializable {
 		return albumArtist;
 	}
 
-	public void setAlbumArtist(String album_artist) {
-		this.albumArtist = album_artist;
+	public void setAlbumArtist(String albumArtist) {
+		this.albumArtist = albumArtist;
 	}
 
 	@Override

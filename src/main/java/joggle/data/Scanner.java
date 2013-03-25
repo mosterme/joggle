@@ -60,21 +60,21 @@ public class Scanner {
 				String file = f.getAbsolutePath();
 				String id = Serializer.hash(file);
 				String t = tag.getFirst(FieldKey.TRACK);
-				Integer track = t.matches("[0-9]+") ? Integer.parseInt(t) : null ;
+				Integer track = t.matches("[0-9]+") ? Integer.parseInt(t) : null;
 				String genre = tag.getFirst(FieldKey.GENRE);
-				if (genre.matches("\\(?[0-9]{1,3}\\)?")) genre = manager.getGenre(genre.replace("(","").replace(")", ""));
-				String album_artist = tag.getFirst(FieldKey.ALBUM_ARTIST);
-				if (brokenEncoding(artist,f)) artist = fixEncoding(artist);
-				if (brokenEncoding(album_artist,f)) album_artist = fixEncoding(album_artist);
-				if (brokenEncoding(album,f)) album = fixEncoding(album);
-				if (brokenEncoding(title,f)) title = fixEncoding(title);
+				if (genre.matches("\\(?[0-9]{1,3}\\)?")) genre = manager.getGenre(genre.replace("(", "").replace(")", ""));
+				String albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
+				if (brokenEncoding(artist, f)) artist = fixEncoding(artist);
+				if (brokenEncoding(albumArtist, f)) albumArtist = fixEncoding(albumArtist);
+				if (brokenEncoding(album, f)) album = fixEncoding(album);
+				if (brokenEncoding(title, f)) title = fixEncoding(title);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
-				if (artwork) log.info("Found artwork in " + f);
-				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), album_artist);
+				if (artwork && log.isDebugEnabled()) log.debug("Found artwork in " + f);
+				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), albumArtist);
 				manager.merge(s);
 			}
 			else {
-				log.warn("No meta tag found " + f);
+				log.warn("No meta tag found in " + f);
 			}
 		}
 		catch (Throwable t) {
@@ -84,7 +84,7 @@ public class Scanner {
 	}
 
 	// TODO: improve this encoding repair... or use a better tag library =)
-	private boolean brokenEncoding (String s, File f) {
+	private boolean brokenEncoding(String s, File f) {
 		boolean b = s.contains("Ã");
 		if (b) log.info("Non utf-8 header in " + f.getAbsolutePath());
 		return b;
@@ -93,6 +93,6 @@ public class Scanner {
 	private String fixEncoding(String s) throws UnsupportedEncodingException {
 		String r = new String(s.getBytes("iso-8859-1"), "utf-8");
 		if (log.isDebugEnabled()) log.debug("fixEncoding: " + s + " -> " + r);
-		return r; 
+		return r;
 	}
 }
