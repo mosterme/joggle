@@ -2,3 +2,7 @@
 
 [Bb]uild/
 [Tt]arget/
+
+.classpath
+.project
+.settings
