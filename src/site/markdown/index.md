@@ -14,4 +14,4 @@ comes with a simple html5 page for easy browsing / playback.
 
 &#160;
 
-![joggle](src/site/resources/images/joggle.small.png)
+![joggle](images/joggle.small.png)
