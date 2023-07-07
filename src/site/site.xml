@@ -3,14 +3,15 @@
 		<name>joggle</name>
 		<src>images/logo.png</src>
 		<alt>joggle</alt>
-		<href>http://code.google.com/p/joggle/</href>
+		<href>https://github.com/mosterme/joggle</href>
 	</bannerLeft>
 	<publishDate position="right"/>
 	<version position="right"/>
 	<body>
 		<breadcrumbs>
-			<item name="joggle" href="http://code.google.com/p/joggle/"/>
+			<item name="joggle" href="https://github.com/mosterme/joggle"/>
 			<item name="html5" href="http://html5boilerplate.com/"/>
+			<item name="htmx" href="https://htmx.org/"/>
 			<item name="json" href="http://www.json.org/"/>
 			<item name="jquery" href="http://jquery.com/"/>
 		</breadcrumbs>
