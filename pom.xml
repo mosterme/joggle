@@ -1,5 +1,4 @@
 ﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<!-- $Id$ -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>joggle</groupId>
 	<artifactId>joggle</artifactId>
@@ -7,14 +6,16 @@
 	<version>0.03</version>
 	<name>joggle</name>
 	<description>joggle is short for "Java OGG LEnder"</description>
-	<url>http://code.google.com/p/joggle/</url>
+	<url>https://github.com/mosterme/joggle</url>
 	<inceptionYear>2011</inceptionYear>
 	<scm>
-		<connection>scm:svn:http://joggle.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:https://joggle.googlecode.com/svn/</developerConnection>
-		<url>http://code.google.com/p/joggle/source/browse/</url>
+		<connection>scm:git:https://github.com/mosterme/joggle.git</connection>
+		<developerConnection>scm:git:git@github.com:mosterme/joggle.git</developerConnection>
+		<url>https://github.com/mosterme/joggle</url>
 	</scm>
 	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
@@ -72,32 +73,6 @@
 		<finalName>${project.name}</finalName>
 		<plugins>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<configuration>
-							<target name="build.properties">
-								<tstamp><format property="timestamp" pattern="yyyy-MM-dd'T'HH:mm:ssZ" locale="en"/></tstamp>
-								<exec outputproperty="revision" executable="svnversion" failifexecutionfails="false"/>
-								<echo>appending to target/classes/joggle.properties</echo>
-								<echo>joggle.application.revision=Revision: ${revision}</echo>
-								<echo>joggle.application.timestamp=${timestamp}</echo>
-								<echo>joggle.application.version=Version: ${project.version}</echo>
-								<echo></echo>
-								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.revision=Revision: ${revision}</echo>
-								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.timestamp=${timestamp}</echo>
-								<echo file="target/classes/joggle.properties" append="true">${line.separator}joggle.application.version=Version: ${project.version}</echo>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.26</version>
@@ -105,75 +80,44 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.7.1</version>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.3.2</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.10</version>
+				<configuration><configLocation>checkstyle.xml</configLocation></configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
-					<reportPlugins>
-						<plugin>
-							<artifactId>maven-jxr-plugin</artifactId>
-							<version>2.3</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>findbugs-maven-plugin</artifactId>
-							<version>2.3.2</version>
-						</plugin>
-						<plugin>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.10</version>
-							<configuration><configLocation>checkstyle.xml</configLocation></configuration>		
-						</plugin>
-						<plugin>
-							<artifactId>maven-pmd-plugin</artifactId>
-							<version>3.0.1</version>
-							<configuration>
-								<targetJdk>1.6</targetJdk>
-								<format>xml</format>
-								<linkXref>true</linkXref>
-								<sourceEncoding>UTF-8</sourceEncoding>
-								<minimumTokens>100</minimumTokens>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>emma-maven-plugin</artifactId>
-							<version>1.0-alpha-3</version>
-						</plugin>
-						<plugin>
-							<artifactId>maven-surefire-report-plugin</artifactId>
-							<version>2.14</version>
-							<configuration>
-								<showSuccess>true</showSuccess>
-							</configuration>
-						</plugin>
-					</reportPlugins>
+					<targetJdk>1.6</targetJdk>
+					<format>xml</format>
+					<linkXref>true</linkXref>
+					<sourceEncoding>UTF-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.14</version>
+				<configuration>
+					<showSuccess>true</showSuccess>
 				</configuration>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<!--Lame, just so very lame! =(  -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-antrun-plugin</artifactId>
-										<versionRange>[1.6,)</versionRange>
-										<goals><goal>run</goal></goals>
-									</pluginExecutionFilter>
-									<action><ignore></ignore></action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+	</reporting>
 </project>
