@@ -41,9 +41,9 @@
 <script id="tart" type="text/x-jquery-tmpl"><li><a onclick="queue('artist', '{{= escape($data)}}')">${}</a></li></script>
 <script id="talb" type="text/x-jquery-tmpl"><li><a onclick="queue('album',  '${escape(title)}')">${title}</a></li></script>
 <script id="plt"  type="text/x-jquery-tmpl"><li><a id="{{= id }}" class="${type} nobr" onclick="play('{{= id }}', '${escape(artist)}', '${escape(album)}', '${escape(title)}', '${track}')">${artist} - ${title}</a></li></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="//ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
-<script src="//cdn.ihwy.net/ihwy-com/labs/jquery-listnav/2.1/jquery.listnav-2.1.js"></script>
+<script src="cdn/jquery.core-1.7.2.js"></script>
+<script src="cdn/jquery.listnav-2.1.js"></script>
+<script src="cdn/jquery.tmpl-beta1.js"></script>
 <script src="./joggle.js"></script>
 </body>
 </html>
