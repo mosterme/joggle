@@ -15,7 +15,7 @@
 <div class="playinfo bubble" id="playinfo">
 <div class="image bubble"><img class="cover" src="../default/img/junk.png" /></div>
 <div class="info column"><div class="artist nobr">Artist </div><div class="album nobr">Album </div><div class="title nobr">Title </div></div>
-<div class="audio nobr"><audio autoplay="autoplay" controls="controls" onended="next()" src="#"></audio></div>
+<div class="audio player"><audio autoplay="autoplay" controls="controls" onended="next()" src="#"></audio></div>
 </div>
 </header>
 <main>
@@ -35,7 +35,7 @@
 </div>
 </nav>
 </main>
-<template id="play">{{#d}}{{#.}}<div class="image bubble"><img class="cover" id="cover" src="/joggle/image/{{id}}" /></div> <div class="info column"> <div class="artist nobr" id="artist">{{artist}} </div> <div class="album nobr" id="album">{{album}} </div> <div class="title nobr" id="title">{{title}} </div> </div> <div class="audio nobr" id="audio"><audio id="player" autoplay="autoplay" controls="controls" onended="next()" src="/joggle/stream/{{id}}"></audio></div>{{/.}}{{/d}}</template>
+<template id="play">{{#d}}{{#.}}<div class="image bubble"><img class="cover" id="cover" src="/joggle/image/{{id}}" /></div> <div class="info column"> <div class="artist nobr" id="artist">{{artist}} </div> <div class="album nobr" id="album">{{album}} </div> <div class="title nobr" id="title">{{title}} </div> </div> <div class="audio player" id="audio"><audio id="player" autoplay="autoplay" controls="controls" onended="next()" src="/joggle/stream/{{id}}"></audio></div>{{/.}}{{/d}}</template>
 <template id="tart">{{#d}}{{#.}}<li hx-get="/joggle/search/artist/{{.}}" hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
 <template id="talb">{{#d}}{{#.}}<li hx-get="/joggle/search/album/{{.}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
 <template id="tson">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{artist}} - {{title}}</li>{{/.}}{{/d}}</template>
