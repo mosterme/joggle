@@ -1,0 +1,18 @@
+a { color:#336; cursor:pointer; }
+body { background: url(img/reuleaux.svg) no-repeat center fixed; background-size: cover; font-family:sans-serif; text-align:center; }
+h1 { color:#fff; }
+.album { font-size:smaller; }
+.artist { font-weight:bold; margin-top:10px; }
+.browse { text-align:left; width:300px; }
+.bubble { background-color:#fff; border:1px solid #888; border-radius:10px; margin:5px; padding:5px; }
+.column { display:inline-block; vertical-align:top; margin:0; padding:0; }
+.cover { max-height:100px; max-width:100px; vertical-align:middle; }
+.cur { color:#844 !important; }
+.image { float:left; padding:10px !important; vertical-align:middle; }
+.mp3 { color:#468; }
+.nobr { white-space:pre-wrap; }
+.ogg { color:#884; }
+.playinfo, .playlist { width:435px; text-align:left; overflow:hidden; }
+.playlist { margin:15px auto; }
+.title { font-size:larger; font-weight:bold; margin:5px; }
+@media all and (max-width: 800px) { .browse { width:435px; } }
