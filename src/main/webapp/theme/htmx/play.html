@@ -6,7 +6,7 @@
 <link rel="shortcut icon" href="../default/img/favicon.png">
 <link rel="stylesheet" href="play.css">
 <script src="cdn/htmx.min.js"></script>
-<script src="cdn/mustache.js"></script>
+<script src="cdn/mustache.min.js"></script>
 <script src="cdn/client-side-templates.js"></script>
 <script src="play.js"></script>
 </head>
@@ -32,6 +32,7 @@
 <div class="browse bubble">
 <a hx-get="/joggle/search/artist/" hx-target="#browser" mustache-template="tart" hx-trigger="load, click">👤</a>
 <a hx-get="/joggle/search/album/"  hx-target="#browser" mustache-template="talb">💿</a>
+<a hx-get="/joggle/search/type/mp3"  hx-target="#browser" mustache-template="talb">🎶</a>
 <ul id="browser"></ul>
 </div>
 </div>
