@@ -2,6 +2,7 @@ package joggle.web;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -45,6 +46,11 @@ public class SearchServlet extends HttpServlet {
 			String album = FilenameUtils.getName(url);
 			if ("".equals(album)) list = manager.albums();
 			else list = manager.byAlbum(album);
+		}
+		else if (url.contains("/song/")) {
+			String song = FilenameUtils.getName(url);
+			if ("".equals(song)) list = manager.songs();
+			else list = Collections.singletonList(manager.find(song));
 		}
 		else {
 			String keywords = url.split("/")[3];
