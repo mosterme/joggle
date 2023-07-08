@@ -5,7 +5,7 @@
       <stop offset="100%" style="stop-color:#5b37eb;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <path fill="url(#lgr)" d="M2 172a196 196 0 0 0 196 0A196 196 0 0 0 100 2.259 196 196 0 0 0 2 172z">
+  <rect fill="url(#lgr)" width="180" height="180">
   <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 110 90" to="360 90 110" dur="90s" repeatCount="indefinite" />
-  </path>
+  </rect>
 </svg>
