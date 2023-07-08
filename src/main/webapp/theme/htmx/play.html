@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>✰ joggle ✰</title>
+<link rel="shortcut icon" href="../default/img/favicon.png">
+<link rel="stylesheet" href="play.css">
+<script src="cdn/htmx.min.js"></script>
+<script src="cdn/mustache.min.js"></script>
+<script src="cdn/client-side-templates.js"></script>
+<script src="play.js"></script>
+</head>
+<body hx-ext="client-side-templates">
+<header>
+<div class="playinfo bubble" id="playinfo">
+<div class="image bubble"><img class="cover" src="../default/img/junk.png" /></div>
+<div class="info column"><div class="artist nobr">Artist </div><div class="album nobr">Album </div><div class="title nobr">Title </div></div>
+<div class="audio player"><audio autoplay="autoplay" controls="controls" onended="next()" src="#"></audio></div>
+</div>
+</header>
+<main>
+<nav>
+<div class="browse bubble">
+<a hx-get="/joggle/search/artist/" hx-target="#browser" mustache-template="tart" hx-trigger="load, click">👤</a>
+<a hx-get="/joggle/search/album/"  hx-target="#browser" mustache-template="talb">💿</a>
+<a hx-get="/joggle/search/type/mp3" hx-target="#browser" mustache-template="tson">🎶</a>
+<ul id="browser"></ul>
+</div>
+</nav>
+<nav>
+<div class="playlist bubble">
+<a id="next" onclick="next()">⏩</a>
+<a hx-get="/joggle/status" hx-target="#playlist" mustache-template="tpls" style="float:right">🗑️</a>
+<ul id="playlist"></ul>
+</div>
+</nav>
+</main>
+<template id="play">{{#d}}{{#.}}<div class="image bubble"><img class="cover" id="cover" src="/joggle/image/{{id}}" /></div> <div class="info column"> <div class="artist nobr" id="artist">{{artist}} </div> <div class="album nobr" id="album">{{album}} </div> <div class="title nobr" id="title">{{title}} </div> </div> <div class="audio player" id="audio"><audio id="player" autoplay="autoplay" controls="controls" onended="next()" src="/joggle/stream/{{id}}"></audio></div>{{/.}}{{/d}}</template>
+<template id="tart">{{#d}}{{#.}}<li hx-get="/joggle/search/artist/{{.}}" hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
+<template id="talb">{{#d}}{{#.}}<li hx-get="/joggle/search/album/{{.}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
+<template id="tson">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{artist}} - {{title}}</li>{{/.}}{{/d}}</template>
+<template id="tpls">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playinfo" hx-swap="innerhtml" mustache-template="play" id="{{id}}" class="{{type}} nobr" onclick="play('{{id }}', '{{artist}}', '{{album}}', '{{title}}', '{{track}}', this)">{{artist}} - {{title}}</li>{{/.}}{{/d}}</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg viewBox="50 45 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lgr" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#37eba9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5b37eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#lgr)" d="M2 172a196 196 0 0 0 196 0A196 196 0 0 0 100 2.259 196 196 0 0 0 2 172z">
+  <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 110 90" to="360 90 110" dur="90s" repeatCount="indefinite" />
+  </path>
+</svg>
