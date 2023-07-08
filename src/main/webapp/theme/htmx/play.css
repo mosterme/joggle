@@ -9,9 +9,10 @@ h1 { color:#fff; }
 .cover { max-height:100px; max-width:100px; vertical-align:middle; }
 .cur { color:#844 !important; }
 .image { float:left; padding:10px !important; vertical-align:middle; }
+.fla { color:#648; }
 .mp3 { color:#468; }
+.ogg { color:#684; }
 .nobr { white-space:pre-wrap; }
-.ogg { color:#884; }
 .playinfo, .playlist { width:435px; text-align:left; overflow:hidden; }
 .playlist { margin:15px auto; }
 .title { font-size:larger; font-weight:bold; margin:5px; }
