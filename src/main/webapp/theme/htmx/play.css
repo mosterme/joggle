@@ -1,19 +1,17 @@
 a, li { color:#336; cursor:pointer; }
 body { background: url(img/reuleaux.svg) no-repeat center fixed; background-size: cover; font-family:sans-serif; }
+main { display:flex; flex-flow:row wrap; margin:auto; width:800px; } header { flex:100%; } nav { flex:1; }
 
-header, main { width: 800px; margin: auto; }
-nav { width: 400px; float:left; }
-
-.audio  { margin:5px; } .playinfo { display: flex; } .info { flex: 33.33%; }
-.bubble { background-color:#fff; border:1px solid #888; border-radius:10px; margin:5px; padding:5px; }
-.cover  { max-height:100px; max-width:100px; min-height:100px; min-width:100px; vertical-align:middle; }
-.image  { float:left; padding:10px !important; vertical-align:middle; }
-.artist { font-weight:bold; margin-top:10px; }
+.audio  { margin:25px 10px; } .playinfo { display:flex; } .info { flex:33.33%; padding:5px; } .info div { margin:5px; }
+.bubble { background-color:#fff; border:1px solid #888; border-radius:10px; color:#444; margin:5px; padding:5px; }
+.cover  { max-height:80px; max-width:80px; min-height:80px; min-width:80px; vertical-align:middle; }
+.image  { float:left; padding:10px !important; vertical-align:middle; } .right { float:right; }
+.artist { font-weight:bold; }
 .album  { font-size:smaller; }
-.title  { font-size:larger; font-weight:bold; margin-top:10px; }
+.title  { font-size:larger; font-weight:bold; }
 .nobr   { white-space:pre-wrap; }
 
 .cur { color:#844 !important; }
-.fla { color:#648; }
+.fla { color:#864; }
 .mp3 { color:#468; }
 .ogg { color:#684; }
