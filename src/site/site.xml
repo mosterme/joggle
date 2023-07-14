@@ -5,16 +5,14 @@
 		<alt>joggle</alt>
 		<href>https://github.com/mosterme/joggle</href>
 	</bannerLeft>
-	<publishDate position="right"/>
-	<version position="right"/>
 	<body>
-		<breadcrumbs>
-			<item name="joggle" href="https://github.com/mosterme/joggle"/>
-			<item name="html5" href="http://html5boilerplate.com/"/>
-			<item name="htmx" href="https://htmx.org/"/>
-			<item name="json" href="http://www.json.org/"/>
-			<item name="jquery" href="http://jquery.com/"/>
-		</breadcrumbs>
+		<head>
+			<![CDATA[<style>.poweredBy {margin-left:15px; margin-top:20px!important; }</style>]]>
+		</head>
 		<menu ref="reports"/>
+		<menu name="Themes">
+			<item name="htmx (default)" href="theme - htmx.html"/>
+			<item name="jquery" href="theme - jquery.html"/>
+		</menu>
 	</body>
 </project>
