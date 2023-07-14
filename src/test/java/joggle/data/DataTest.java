@@ -89,7 +89,7 @@ public class DataTest extends TestCase {
 		Song song = manager.find(sha1);
 		assertEquals(album, song.getAlbum());
 		assertEquals(artist, song.getArtist());
-		assertEquals(new Integer(6), song.getTrack());
+		assertEquals(Integer.valueOf(6), song.getTrack());
 		assertEquals(title, song.getTitle());
 		assertEquals(genre, song.getGenre());
 	}
