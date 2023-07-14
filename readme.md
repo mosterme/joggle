@@ -1,9 +1,9 @@
 <img src="src/site/resources/images/audio.png" style="float:left; margin-right: .7em"/> joggle
 -----------------------------------------------
 
-joggle is short for "Java OGG LEnder"
+joggle is a simple music player webapp.
 
-joggle is a simple mp3 / ogg streaming webapp. needs java and maven to build.
+needs java and maven to build.
 
 1. check out the ``main`` branch or download the latest ``release``.
 2. edit ``src/main/resources/joggle.properties`` to point to your music directory.
