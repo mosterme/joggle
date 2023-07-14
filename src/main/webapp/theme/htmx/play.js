@@ -1,8 +1,6 @@
-function play(id, artist, album, title, track, elem) {
-    var old = htmx.find(".cur");
-    if (old) htmx.removeClass(old, "cur");
-    htmx.addClass(elem, "cur");
-    document.title = title + " - " + artist;
+function play(elem) {
+    htmx.takeClass(elem, "cur");
+    document.title = elem.innerText;
 }
 
 function next() { 
