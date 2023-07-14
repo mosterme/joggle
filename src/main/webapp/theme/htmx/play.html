@@ -39,6 +39,6 @@
 <template id="tart">{{#d}}{{#.}}<li hx-get="/joggle/search/artist/{{.}}" hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
 <template id="talb">{{#d}}{{#.}}<li hx-get="/joggle/search/album/{{.}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{.}}</li>{{/.}}{{/d}}</template>
 <template id="tson">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playlist" hx-swap="beforeend" mustache-template="tpls">{{artist}} - {{title}}</li>{{/.}}{{/d}}</template>
-<template id="tpls">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playinfo" hx-swap="innerhtml" mustache-template="play" id="{{id}}" class="{{type}} nobr" onclick="play('{{id }}', '{{artist}}', '{{album}}', '{{title}}', '{{track}}', this)">{{artist}} - {{title}}</li>{{/.}}{{/d}}</script>
+<template id="tpls">{{#d}}{{#.}}<li hx-get="/joggle/search/song/{{id}}"  hx-target="#playinfo" hx-swap="innerhtml" mustache-template="play" id="{{id}}" class="{{type}} nobr" onclick="play(this)">{{artist}} - {{title}}</li>{{/.}}{{/d}}</script>
 </body>
 </html>
