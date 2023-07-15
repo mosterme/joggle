@@ -97,6 +97,7 @@
 				<configuration>
 					<content>${project.reporting.outputDirectory}</content>
 					<scmBranch>gh-pages</scmBranch>
+					<username>GitHub Actions Bot</username>
 				</configuration>
 			</plugin>
 		</plugins>
