@@ -3,6 +3,7 @@
 name: maven-site-deploy
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -20,9 +21,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: 'maven'
-
-    - name: 🛂 Set up Git
-      run: git config user.name "GitHub Actions Bot" && git config user.email "<>"
 
     - name: 📑 Create site with Maven
       run: mvn site
