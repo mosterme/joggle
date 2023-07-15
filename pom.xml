@@ -90,8 +90,22 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-publish-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<scmBranch>gh-pages</scmBranch>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<url>scm:git:git@github.com:mosterme/joggle.git</url>
+		</site>
+	</distributionManagement>
 	<reporting>
 		<plugins>
 			<plugin>
