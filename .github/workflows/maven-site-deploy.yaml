@@ -3,7 +3,7 @@
 name: maven-site-deploy
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   push:
     branches:
       - main
