@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>StatusServlet xref</title>
+<link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../apidocs/joggle/web/StatusServlet.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> joggle.web;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.io.Writer;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.lang.management.ManagementFactory;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> java.lang.management.RuntimeMXBean;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> java.text.SimpleDateFormat;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.TreeMap;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.servlet.ServletException;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.servlet.http.HttpServlet;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.servlet.http.HttpServletRequest;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> javax.servlet.http.HttpServletResponse;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> joggle.data.Manager;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> joggle.data.Serializer;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * @author  $Author$</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * @version $Revision$</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="StatusServlet" href="../../joggle/web/StatusServlet.html#StatusServlet">StatusServlet</a> <strong class="jxr_keyword">extends</strong> HttpServlet {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 3640618359057072513L;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> SimpleDateFormat df = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"d MMM yyyy HH:mm:ss"</span>);
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  	@Override
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  	<strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> doGet(HttpServletRequest request, HttpServletResponse response) <strong class="jxr_keyword">throws</strong> ServletException, IOException {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		Writer out = response.getWriter();
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		out.write(Serializer.toJson(status()));
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  	}
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  	@SuppressWarnings({ <span class="jxr_string">"rawtypes"</span>, <span class="jxr_string">"unchecked"</span> })
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map status() {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  		Manager manager = Manager.getInstance();
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  		<strong class="jxr_keyword">int</strong> i = manager.albums().size(), j = manager.artists().size(), k = manager.songs().size();
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  		Map result = <strong class="jxr_keyword">new</strong> TreeMap();
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  		result.put(<span class="jxr_string">"application.revision"</span>, manager.getProperty(<span class="jxr_string">"joggle.application.revision"</span>));
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  		result.put(<span class="jxr_string">"application.timestamp"</span>, manager.getProperty(<span class="jxr_string">"joggle.application.timestamp"</span>));
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  		result.put(<span class="jxr_string">"application.version"</span>, manager.getProperty(<span class="jxr_string">"joggle.application.version"</span>));
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		result.put(<span class="jxr_string">"manager.albums"</span>, i);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  		result.put(<span class="jxr_string">"manager.artists"</span>, j);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  		result.put(<span class="jxr_string">"manager.songs"</span>, k);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  		Runtime rt = Runtime.getRuntime();
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  		result.put(<span class="jxr_string">"memory.free"</span>, FileUtils.byteCountToDisplaySize(rt.freeMemory()));
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		result.put(<span class="jxr_string">"memory.max"</span>, FileUtils.byteCountToDisplaySize(rt.maxMemory()));
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  		result.put(<span class="jxr_string">"memory.total"</span>, FileUtils.byteCountToDisplaySize(rt.totalMemory()));
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		result.put(<span class="jxr_string">"vm.started"</span>, df.format(rb.getStartTime()));
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  		result.put(<span class="jxr_string">"vm.uptime"</span>, rb.getUptime()); <em class="jxr_comment">// TODO: format this</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  		<em class="jxr_comment">// OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  		<em class="jxr_comment">// result.put("system.load", os.getSystemLoadAverage());</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  		<strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  	}
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2011&#x2013;2023. All rights reserved.</div>
+</body>
+</html>
