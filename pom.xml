@@ -91,13 +91,13 @@
 				<version>3.12.1</version>
 			</plugin>
 			<plugin>
+				<!-- publish site to gh-pages run: mvn scm-publish:publish-scm -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-publish-plugin</artifactId>
 				<version>3.2.1</version>
 				<configuration>
 					<content>${project.reporting.outputDirectory}</content>
 					<scmBranch>gh-pages</scmBranch>
-					<username>GitHub Actions Bot</username>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -105,7 +105,7 @@
 	<distributionManagement>
 		<site>
 			<id>github</id>
-			<url>scm:git:https://github.com/mosterme/joggle.git</url>
+			<url>scm:git:git@github.com:mosterme/joggle.git</url>
 		</site>
 	</distributionManagement>
 	<reporting>
