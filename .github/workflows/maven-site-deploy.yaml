@@ -21,11 +21,11 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
+    - name: 🛂 Set up Git
+      run: git config user.name "GitHub Actions Bot" && git config user.email "<>"
+
     - name: 📑 Create site with Maven
       run: mvn site
-
-    - name: 🗂️ Stage site with Maven
-      run: mvn site:stage
 
     - name: 📤 Publish site to gh-pages
       run: mvn scm-publish:publish-scm
