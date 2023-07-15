@@ -103,7 +103,7 @@
 	<distributionManagement>
 		<site>
 			<id>github</id>
-			<url>scm:git:git@github.com:mosterme/joggle.git</url>
+			<url>scm:git:https://github.com/mosterme/joggle.git</url>
 		</site>
 	</distributionManagement>
 	<reporting>
