@@ -87,7 +87,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
@@ -96,7 +95,6 @@
 			</plugin>
 			<plugin>
 				<!-- publish site to gh-pages run: mvn scm-publish:publish-scm -->
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-publish-plugin</artifactId>
 				<version>3.2.1</version>
 				<configuration>
@@ -112,6 +110,15 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/source.xml</descriptor>
+					</descriptors>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
