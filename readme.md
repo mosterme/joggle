@@ -10,7 +10,7 @@ needs java and maven to build.
 3. start with ``mvn jetty:run``.
 4. open http://localhost:8080/joggle/ in your browser.
 
-comes with a simple html5 page for easy browsing / playback.
+comes with a simple html page for easy browsing / playback.
 
 &#160;
 
