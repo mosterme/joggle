@@ -1,33 +1,60 @@
-name: Java code checks with Maven
-
 on:
   push:
     branches: [ "*" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
-
+  checkstyle:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
+    - name: 📥 git check out
+      uses: actions/checkout@v3
+    - name: ☕ set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-
-    - name: Checkstyle
+    - name: ✏️ Checkstyle
       run: mvn checkstyle:check
 
-    - name: Findbugs
+  findbugs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 git check out
+      uses: actions/checkout@v3
+    - name: ☕ set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: 🔍 Findbugs
       run: mvn spotbugs:check
-      
-    - name: PMD Check
+
+  pmd-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 git check out
+      uses: actions/checkout@v3
+    - name: ☕ set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: ✅ PMD Check
       run: mvn pmd:check
 
-    - name: Maven Test
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 git check out
+      uses: actions/checkout@v3
+    - name: ☕ set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: 🧪 Unit Test
       run: mvn test  
