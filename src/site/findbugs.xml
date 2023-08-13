@@ -1,0 +1,20 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="joggle.data.Scanner" />
+        <Method name="scan" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+    </Match>
+    <Match>
+        <Class name="joggle.data.Serializer" />
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
+    <Match>
+        <Class name="joggle.web.SearchServlet" />
+        <Bug pattern="XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER" />
+    </Match>
+    <Match>
+        <Class name="joggle.web.StatusServlet" />
+        <Method name="status" />
+        <Bug pattern="STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE" />
+    </Match>
+</FindBugsFilter>
