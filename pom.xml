@@ -80,6 +80,10 @@
 				<configuration><configLocation>src/site/checkstyle.xml</configLocation></configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.23.0</version>
+			</plugin>
+			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
 				<version>4.8.6.6</version>
@@ -169,7 +173,6 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.23.0</version>
 			</plugin>
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
