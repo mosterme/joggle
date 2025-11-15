@@ -36,8 +36,8 @@ public class Manager {
 		catch (IOException e) { log.warn(e.getMessage()); }
 		finally { IOUtils.closeQuietly(stream); }
 
-		for (String s : new TreeSet<String>(properties.stringPropertyNames())) {
-			log.info("> " + s + "=" + properties.get(s));
+		for (String s : new TreeSet<>(properties.stringPropertyNames())) {
+			log.info("> {} = {}", s, properties.get(s));
 		}
 
 		stream = Manager.class.getResourceAsStream("/id3v1.properties");
@@ -64,7 +64,7 @@ public class Manager {
 	}
 
 	public String getGenre(String key) {
-		if (log.isTraceEnabled()) log.trace(key + " = " + genres.getProperty(key));
+		log.trace("{} = {}", key, genres.getProperty(key));
 		return genres.getProperty(key);
 	}
 
@@ -101,7 +101,7 @@ public class Manager {
 	}
 
 	public void merge(Song s) {
-		if (log.isDebugEnabled()) log.debug("merging " + s);
+		log.debug("merging {}", s);
 		manager.getTransaction().begin();
 		manager.merge(s);
 		manager.getTransaction().commit();
@@ -109,7 +109,7 @@ public class Manager {
 
 	public List<Song> search(String keyword) {
 		String search = "%" + keyword.trim().toLowerCase() + "%";
-		if (log.isDebugEnabled()) log.debug("searching " + search);
+		log.debug("searching {}", search);
 		return manager.createQuery("select s from Song as s where lower(s.album) like :q or lower(s.artist) like :q or lower(s.title) like :q" + aat).setParameter("q", search).getResultList();
 	}
 

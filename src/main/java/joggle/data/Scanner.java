@@ -23,20 +23,20 @@ public class Scanner {
 	private long bytes, directories, files;
 
 	public void scan(String s) {
-		log.info("Scanning " + s);
+		log.info("Scanning {}", s);
 		long t0 = System.currentTimeMillis();
 		scan(new File(s));
 		long t1 = System.currentTimeMillis();
-		log.info("> Scan report for " + s);
-		log.info(">   audio files   " + files);
-		log.info(">   direcories    " + directories);
-		log.info(">   scanned bytes " + FileUtils.byteCountToDisplaySize(bytes));
-		log.info(">   time elapsed  " + (t1 - t0) + " millis");
+		log.info("> Scan report for {}", s);
+		log.info(">   audio files   {}", files);
+		log.info(">   directories   {}", directories);
+		log.info(">   scanned bytes {}", FileUtils.byteCountToDisplaySize(bytes));
+		log.info(">   time elapsed  {} millis", t1 - t0);
 	}
 
 	public void scan(File d) {
 		if (d.isDirectory()) {
-			if (log.isDebugEnabled()) log.debug("scanning " + d);
+			log.debug("scanning {}", d);
 			File[] fa = d.listFiles(filter);
 			for (File f : fa) scan(f);
 			directories++;
@@ -64,12 +64,12 @@ public class Scanner {
 				if (genre.matches("\\(?[0-9]{1,3}\\)?")) genre = manager.getGenre(genre.replace("(", "").replace(")", ""));
 				String albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
 				Boolean artwork = tag.getFirstArtwork() != null && tag.getFirstArtwork().getBinaryData() != null; // has artwork but no data?
-				if (artwork && log.isDebugEnabled()) log.debug("Found artwork in " + f);
+				if (artwork) log.debug("Found artwork in {}", f);
 				Song s = new Song(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), albumArtist);
 				manager.merge(s);
 			}
 			else {
-				log.warn("No meta tag found in " + f);
+				log.warn("No meta tag found in {}", f);
 			}
 		}
 		catch (Throwable t) {

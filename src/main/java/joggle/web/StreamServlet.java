@@ -37,7 +37,7 @@ public class StreamServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getRequestURI().split("/")[3]; // TODO: muahahaha
-		if (log.isDebugEnabled()) log.debug("request: " + id + " from: " + request.getRemoteHost());
+		log.debug("request: {} from: {}", id, request.getRemoteHost());
 		Song song = manager.find(id);
 		if (song != null) {
 			File file = new File(song.getFile());
@@ -50,12 +50,12 @@ public class StreamServlet extends HttpServlet {
 				finally { IOUtils.closeQuietly(stream); }
 			}
 			else {
-				log.warn("file not found: " + file);
+				log.warn("file not found: {}", file);
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			}
 		}
 		else {
-			log.info("song not found: " + id);
+			log.info("song not found: {}", id);
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
