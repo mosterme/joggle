@@ -10,100 +10,82 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.io.File;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.io.FileFilter;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> java.io.UnsupportedEncodingException;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFile;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFileFilter;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFileIO;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.jaudiotagger.tag.FieldKey;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.jaudiotagger.tag.Tag;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * @author  $Author$</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * @version $Revision$</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Scanner" href="../../joggle/data/Scanner.html#Scanner">Scanner</a> {
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger log = LoggerFactory.getLogger(Scanner.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> FileFilter filter = <strong class="jxr_keyword">new</strong> AudioFileFilter(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> bytes, directories, files;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> scan(String s) {
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  		log.info(<span class="jxr_string">"Scanning "</span> + s);
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  		<strong class="jxr_keyword">long</strong> t0 = System.currentTimeMillis();
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  		scan(<strong class="jxr_keyword">new</strong> File(s));
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  		<strong class="jxr_keyword">long</strong> t1 = System.currentTimeMillis();
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  		log.info(<span class="jxr_string">"&gt; Scan report for "</span> + s);
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		log.info(<span class="jxr_string">"&gt;   audio files   "</span> + files);
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		log.info(<span class="jxr_string">"&gt;   direcories    "</span> + directories);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		log.info(<span class="jxr_string">"&gt;   scanned bytes "</span> + FileUtils.byteCountToDisplaySize(bytes));
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		log.info(<span class="jxr_string">"&gt;   time elapsed  "</span> + (t1 - t0) + <span class="jxr_string">" millis"</span>);
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  	}
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> scan(File d) {
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  		<strong class="jxr_keyword">if</strong> (d.isDirectory()) {
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  			<strong class="jxr_keyword">if</strong> (log.isDebugEnabled()) log.debug(<span class="jxr_string">"scanning "</span> + d);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  			File[] fa = d.listFiles(filter);
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  			<strong class="jxr_keyword">for</strong> (File f : fa) scan(f);
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  			directories++;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		}
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (d.isFile()) {
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  			handle(d);
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  			files++; bytes += d.length();
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  		}
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  	}
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> handle(File f) {
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  			AudioFile af = AudioFileIO.read(f); Tag tag = af.getTag();
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  			String type = af.getAudioHeader().getEncodingType().substring(0, 3).toLowerCase();
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  			<strong class="jxr_keyword">if</strong> (tag != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  				Manager manager = Manager.getInstance();
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  				String artist = tag.getFirst(FieldKey.ARTIST);
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  				String album = tag.getFirst(FieldKey.ALBUM);
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  				String title = tag.getFirst(FieldKey.TITLE);
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  				String file = f.getAbsolutePath();
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  				String id = Serializer.hash(file);
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  				String t = tag.getFirst(FieldKey.TRACK);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  				Integer track = t.matches(<span class="jxr_string">"[0-9]+"</span>) ? Integer.parseInt(t) : <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  				String genre = tag.getFirst(FieldKey.GENRE);
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  				<strong class="jxr_keyword">if</strong> (genre.matches(<span class="jxr_string">"&#92;&#92;(?[0-9]{1,3}&#92;&#92;)?"</span>)) genre = manager.getGenre(genre.replace(<span class="jxr_string">"("</span>, <span class="jxr_string">""</span>).replace(<span class="jxr_string">")"</span>, <span class="jxr_string">""</span>));
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  				String albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  				<strong class="jxr_keyword">if</strong> (brokenEncoding(artist, f)) artist = fixEncoding(artist);
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  				<strong class="jxr_keyword">if</strong> (brokenEncoding(albumArtist, f)) albumArtist = fixEncoding(albumArtist);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  				<strong class="jxr_keyword">if</strong> (brokenEncoding(album, f)) album = fixEncoding(album);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  				<strong class="jxr_keyword">if</strong> (brokenEncoding(title, f)) title = fixEncoding(title);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  				Boolean artwork = tag.getFirstArtwork() != <strong class="jxr_keyword">null</strong> &amp;&amp; tag.getFirstArtwork().getBinaryData() != <strong class="jxr_keyword">null</strong>; <em class="jxr_comment">// has artwork but no data?</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  				<strong class="jxr_keyword">if</strong> (artwork &amp;&amp; log.isDebugEnabled()) log.debug(<span class="jxr_string">"Found artwork in "</span> + f);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  				Song s = <strong class="jxr_keyword">new</strong> <a name="Song" href="../../joggle/data/Song.html#Song">Song</a>(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), albumArtist);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  				manager.merge(s);
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  			}
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  			<strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  				log.warn(<span class="jxr_string">"No meta tag found in "</span> + f);
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  			}
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  		}
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  		<strong class="jxr_keyword">catch</strong> (Throwable t) {
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  			log.warn(t.getMessage());
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  			log.warn(f.getAbsolutePath());
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  		}
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  	}
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  	<em class="jxr_comment">// TODO: improve this encoding repair... or use a better tag library =)</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> brokenEncoding(String s, File f) {
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  		<strong class="jxr_keyword">boolean</strong> b = s.contains(<span class="jxr_string">"Ã"</span>);
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  		<strong class="jxr_keyword">if</strong> (b) log.info(<span class="jxr_string">"Non utf-8 header in "</span> + f.getAbsolutePath());
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		<strong class="jxr_keyword">return</strong> b;
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  	}
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  	<strong class="jxr_keyword">private</strong> String fixEncoding(String s) <strong class="jxr_keyword">throws</strong> UnsupportedEncodingException {
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  		String r = <strong class="jxr_keyword">new</strong> String(s.getBytes(<span class="jxr_string">"iso-8859-1"</span>), <span class="jxr_string">"utf-8"</span>);
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  		<strong class="jxr_keyword">if</strong> (log.isDebugEnabled()) log.debug(<span class="jxr_string">"fixEncoding: "</span> + s + <span class="jxr_string">" -&gt; "</span> + r);
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>  		<strong class="jxr_keyword">return</strong> r;
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>  	}
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  }
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFile;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFileFilter;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.jaudiotagger.audio.AudioFileIO;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.jaudiotagger.tag.FieldKey;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.jaudiotagger.tag.Tag;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * @author  $Author$</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * @version $Revision$</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Scanner" href="../../joggle/data/Scanner.html#Scanner">Scanner</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Logger log = LoggerFactory.getLogger(Scanner.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> FileFilter filter = <strong class="jxr_keyword">new</strong> AudioFileFilter(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">long</strong> bytes, directories, files;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> scan(String s) {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  		log.info(<span class="jxr_string">"Scanning {}"</span>, s);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  		<strong class="jxr_keyword">long</strong> t0 = System.currentTimeMillis();
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  		scan(<strong class="jxr_keyword">new</strong> File(s));
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  		<strong class="jxr_keyword">long</strong> t1 = System.currentTimeMillis();
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  		log.info(<span class="jxr_string">"&gt; Scan report for {}"</span>, s);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  		log.info(<span class="jxr_string">"&gt;   audio files   {}"</span>, files);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  		log.info(<span class="jxr_string">"&gt;   directories   {}"</span>, directories);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		log.info(<span class="jxr_string">"&gt;   scanned bytes {}"</span>, FileUtils.byteCountToDisplaySize(bytes));
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		log.info(<span class="jxr_string">"&gt;   time elapsed  {} millis"</span>, t1 - t0);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  	}
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> scan(File d) {
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  		<strong class="jxr_keyword">if</strong> (d.isDirectory()) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  			log.debug(<span class="jxr_string">"scanning {}"</span>, d);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  			File[] fa = d.listFiles(filter);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  			<strong class="jxr_keyword">for</strong> (File f : fa) scan(f);
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  			directories++;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  		}
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  		<strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (d.isFile()) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  			handle(d);
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  			files++; bytes += d.length();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  		}
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  	}
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> handle(File f) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  		<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  			AudioFile af = AudioFileIO.read(f); Tag tag = af.getTag();
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  			String type = af.getAudioHeader().getEncodingType().substring(0, 3).toLowerCase();
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  			<strong class="jxr_keyword">if</strong> (tag != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  				Manager manager = Manager.getInstance();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  				String artist = tag.getFirst(FieldKey.ARTIST);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  				String album = tag.getFirst(FieldKey.ALBUM);
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  				String title = tag.getFirst(FieldKey.TITLE);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  				String file = f.getAbsolutePath();
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  				String id = Serializer.hash(file);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  				String t = tag.getFirst(FieldKey.TRACK);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  				Integer track = t.matches(<span class="jxr_string">"[0-9]+"</span>) ? Integer.parseInt(t) : <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  				String genre = tag.getFirst(FieldKey.GENRE);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  				<strong class="jxr_keyword">if</strong> (genre.matches(<span class="jxr_string">"&#92;&#92;(?[0-9]{1,3}&#92;&#92;)?"</span>)) genre = manager.getGenre(genre.replace(<span class="jxr_string">"("</span>, <span class="jxr_string">""</span>).replace(<span class="jxr_string">")"</span>, <span class="jxr_string">""</span>));
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  				String albumArtist = tag.getFirst(FieldKey.ALBUM_ARTIST);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  				Boolean artwork = tag.getFirstArtwork() != <strong class="jxr_keyword">null</strong> &amp;&amp; tag.getFirstArtwork().getBinaryData() != <strong class="jxr_keyword">null</strong>; <em class="jxr_comment">// has artwork but no data?</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  				<strong class="jxr_keyword">if</strong> (artwork) log.debug(<span class="jxr_string">"Found artwork in {}"</span>, f);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  				Song s = <strong class="jxr_keyword">new</strong> <a name="Song" href="../../joggle/data/Song.html#Song">Song</a>(id, type, artist, album, track, title, genre, artwork, file, System.currentTimeMillis(), albumArtist);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  				manager.merge(s);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  			}
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  			<strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  				log.warn(<span class="jxr_string">"No meta tag found in {}"</span>, f);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  			}
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  		}
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  		<strong class="jxr_keyword">catch</strong> (Throwable t) {
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  			log.warn(t.getMessage());
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  			log.warn(f.getAbsolutePath());
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  		}
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  	}
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2011–2025</div>
