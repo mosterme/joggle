@@ -1,7 +1,6 @@
 package joggle.data;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
@@ -35,12 +34,12 @@ public class Serializer {
 		return bos.toString();
 	}
 
-	public static final String hash(String s) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public static String hash(String s) throws NoSuchAlgorithmException {
 		byte[] hash = MessageDigest.getInstance("SHA-1").digest(s.getBytes());
 		return hex(hash);
 	}
 
-	public static final String hex(byte[] bytes) {
+	public static String hex(byte[] bytes) {
 		if (bytes == null) return null;
 		StringBuilder s = new StringBuilder(2 * bytes.length);
 		for (final byte b : bytes) s.append(hexs.charAt((b & 0xF0) >> 4)).append(hexs.charAt(b & 0x0F));

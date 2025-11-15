@@ -25,7 +25,6 @@ import org.apache.commons.io.FileUtils;
 public class StatusServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3640618359057072513L;
-	private static final SimpleDateFormat df = new SimpleDateFormat("d MMM yyyy HH:mm:ss");
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +37,7 @@ public class StatusServlet extends HttpServlet {
 		Manager manager = Manager.getInstance();
 		int i = manager.albums().size(), j = manager.artists().size(), k = manager.songs().size();
 		Map result = new TreeMap();
+        SimpleDateFormat df = new SimpleDateFormat("d MMM yyyy HH:mm:ss");
 		result.put("application.revision", manager.getProperty("joggle.application.revision"));
 		result.put("application.timestamp", manager.getProperty("joggle.application.timestamp"));
 		result.put("application.version", manager.getProperty("joggle.application.version"));

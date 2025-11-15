@@ -1,6 +1,5 @@
 package joggle.data;
 
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import junit.framework.TestCase;
@@ -16,7 +15,7 @@ public class SerializerTest extends TestCase {
 		assertNull(Serializer.decode(null));
 	}
 
-	public void testHash() throws NoSuchAlgorithmException, IOException {
+	public void testHash() throws NoSuchAlgorithmException {
 		String hash = Serializer.hash("{}");
 		assertNotNull(hash);
 		assertEquals("BF21A9E8FBC5A3846FB05B4FA0859E0917B2202F", hash);
