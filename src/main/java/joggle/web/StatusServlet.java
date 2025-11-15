@@ -3,6 +3,7 @@ package joggle.web;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
 import java.util.Map;
@@ -51,8 +52,8 @@ public class StatusServlet extends HttpServlet {
 		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
 		result.put("vm.started", df.format(rb.getStartTime()));
 		result.put("vm.uptime", rb.getUptime()); // TODO: format this
-		// OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
-		// result.put("system.load", os.getSystemLoadAverage());
+		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+		result.put("system.load", os.getSystemLoadAverage());
 		return result;
 	}
 }
