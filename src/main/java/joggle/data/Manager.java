@@ -7,8 +7,8 @@ import java.util.Properties;
 import java.util.TreeSet;
 import java.util.logging.LogManager;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
