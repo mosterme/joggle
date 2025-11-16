@@ -45,7 +45,7 @@ public class ImageServlet extends HttpServlet {
 		Song song = manager.find(id);
 		if (song != null) {
 			if (song.getArtwork()) {
-				if (log.isDebugEnabled()) log.debug("song has embedded artwork");
+				log.debug("song has embedded artwork");
 				try {
 					AudioFile af = AudioFileIO.read(new File(song.getFile())); Tag tag = af.getTag();
 					Artwork aw = tag.getFirstArtwork(); byte[] bytes = aw.getBinaryData();
@@ -58,7 +58,7 @@ public class ImageServlet extends HttpServlet {
 				}
 			}
 			else {
-				if (log.isDebugEnabled()) log.debug("search in directory");
+				log.debug("search in directory");
 				File directory = new File(song.getFile()).getParentFile();
 				File[] files = directory.listFiles(filter);
 				if (files != null && files.length > 0) {
@@ -74,16 +74,16 @@ public class ImageServlet extends HttpServlet {
 					finally { IOUtils.closeQuietly(stream); }
 				}
 				else {
-					if (log.isDebugEnabled()) log.debug("image not found: " + id + ", sending redirect: " + redirect);
+					log.debug("image not found: {}, sending redirect: {}", id, redirect);
 					response.sendRedirect(redirect);
 				}
 			}
 		}
 		else {
-			log.info("song not found: " + id);
+			log.info("song not found: {}", id);
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		long t1 = System.currentTimeMillis();
-		log.info("request: " + id + " duration: " + (t1 - t0) + "ms");
+		log.info("request: {} duration: {}ms", id, t1 - t0);
 	}
 }

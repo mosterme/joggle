@@ -1,9 +1,0 @@
-# This .gitignore file should be placed at the root of your project directory.
-
-[Bb]uild/
-[Tt]arget/
-
-.classpath
-.project
-.settings
-.vscode

@@ -3,6 +3,7 @@ package joggle.web;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
 import java.util.Map;
@@ -25,7 +26,6 @@ import org.apache.commons.io.FileUtils;
 public class StatusServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3640618359057072513L;
-	private static final SimpleDateFormat df = new SimpleDateFormat("d MMM yyyy HH:mm:ss");
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +38,7 @@ public class StatusServlet extends HttpServlet {
 		Manager manager = Manager.getInstance();
 		int i = manager.albums().size(), j = manager.artists().size(), k = manager.songs().size();
 		Map result = new TreeMap();
+        SimpleDateFormat df = new SimpleDateFormat("d MMM yyyy HH:mm:ss");
 		result.put("application.revision", manager.getProperty("joggle.application.revision"));
 		result.put("application.timestamp", manager.getProperty("joggle.application.timestamp"));
 		result.put("application.version", manager.getProperty("joggle.application.version"));
@@ -51,8 +52,8 @@ public class StatusServlet extends HttpServlet {
 		RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
 		result.put("vm.started", df.format(rb.getStartTime()));
 		result.put("vm.uptime", rb.getUptime()); // TODO: format this
-		// OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
-		// result.put("system.load", os.getSystemLoadAverage());
+		OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
+		result.put("system.load", os.getSystemLoadAverage());
 		return result;
 	}
 }
